@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Automat.Domain.Entities
 {
-    class AutomatSlot
+    public class AutomatSlot : BaseEntity
     {
+        public AutomatSlot()
+        {
+            this.AutomatSlotProducts = new List<AutomatSlotProduct>();
+        }
+        public int SlotNumber { get; set; }
+        public virtual IEnumerable<AutomatSlotProduct> AutomatSlotProducts { get; set; }
     }
 }

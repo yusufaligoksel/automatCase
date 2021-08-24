@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Automat.Domain.Entities
 {
-    class PaymentType
+    public class PaymentType : BaseEntity
     {
+        public PaymentType()
+        {
+            this.PaymentTypeOptions = new List<PaymentTypeOption>();
+        }
+        public string Name { get; set; }
+        public virtual IEnumerable<PaymentTypeOption> PaymentTypeOptions { get; set; }
     }
 }

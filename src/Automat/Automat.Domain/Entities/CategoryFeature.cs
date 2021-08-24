@@ -7,18 +7,21 @@ using System.Threading.Tasks;
 
 namespace Automat.Domain.Entities
 {
-    public class Product : BaseEntity
+    public class CategoryFeature
     {
-        public Product()
+        public CategoryFeature()
         {
-            this.AutomatSlotProducts = new List<AutomatSlotProduct>();
+            this.CategoryFeatureOptions = new List<CategoryFeatureOption>();
         }
-        public string Name { get; set; }
+
         [ForeignKey("CategoryId")]
         public int CategoryId { get; set; }
-        public decimal UnitPrice { get; set; }
-        public bool IsDeleted { get; set; }
+        /// <summary>
+        /// Ana title Şeker durumu
+        /// </summary>
+        public string Name { get; set; }
         public Category Category { get; set; }
-        public virtual IEnumerable<AutomatSlotProduct> AutomatSlotProducts { get; set; }
+        public virtual IEnumerable<CategoryFeatureOption> CategoryFeatureOptions { get; set; }
+
     }
 }

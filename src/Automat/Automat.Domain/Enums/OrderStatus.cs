@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Automat.Domain.Entities
+namespace Automat.Domain.Enums
 {
-    class ProductFeatureOption
+    public enum OrderStatus
     {
+        Complete=1,
+        Cancelled=2,
+        Failed=3
     }
 }

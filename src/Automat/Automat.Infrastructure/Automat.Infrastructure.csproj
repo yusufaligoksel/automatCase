@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Automat.Domain\Automat.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+  </ItemGroup>
+
 </Project>

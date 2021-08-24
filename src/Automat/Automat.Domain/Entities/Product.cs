@@ -16,7 +16,7 @@ namespace Automat.Domain.Entities
         public string Name { get; set; }
         [ForeignKey("CategoryId")]
         public int CategoryId { get; set; }
-        public decimal UnitPrice { get; set; }
+        public decimal Price { get; set; }
         public bool IsDeleted { get; set; }
         public Category Category { get; set; }
         public virtual IEnumerable<AutomatSlotProduct> AutomatSlotProducts { get; set; }

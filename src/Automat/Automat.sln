@@ -13,19 +13,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7B7AC797-9D9B-4280-98D3-ED3BC961435D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automat.Unittest", "Automat.Unittest\Automat.Unittest.csproj", "{D14547E4-E25A-4A5D-8A7E-FA10BD942D17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Automat.Unittest", "Automat.Unittest\Automat.Unittest.csproj", "{D14547E4-E25A-4A5D-8A7E-FA10BD942D17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automat.IntegrationTest", "Automat.IntegrationTest\Automat.IntegrationTest.csproj", "{5CA1BB8E-8A49-42ED-8E00-D36971D0FCAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Automat.IntegrationTest", "Automat.IntegrationTest\Automat.IntegrationTest.csproj", "{5CA1BB8E-8A49-42ED-8E00-D36971D0FCAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automat.Common", "Automat.Common\Automat.Common.csproj", "{7DCE502C-B32D-43C5-915F-FF43AC3ADCEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Automat.Common", "Automat.Common\Automat.Common.csproj", "{7DCE502C-B32D-43C5-915F-FF43AC3ADCEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automat.Application", "Automat.Application\Automat.Application.csproj", "{439884CF-917C-4879-947C-750A2B7030FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Automat.Application", "Automat.Application\Automat.Application.csproj", "{439884CF-917C-4879-947C-750A2B7030FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automat.Domain", "Automat.Domain\Automat.Domain.csproj", "{0240BFA6-491C-48ED-A21D-EF3010D41E88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Automat.Domain", "Automat.Domain\Automat.Domain.csproj", "{0240BFA6-491C-48ED-A21D-EF3010D41E88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automat.Infrastructure", "Automat.Infrastructure\Automat.Infrastructure.csproj", "{1E873992-0BF6-42E4-9794-379709FE3C85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Automat.Infrastructure", "Automat.Infrastructure\Automat.Infrastructure.csproj", "{1E873992-0BF6-42E4-9794-379709FE3C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automat.Persistence", "Automat.Persistence\Automat.Persistence.csproj", "{595A28E3-5CB7-464E-8B17-9446F5188B11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Automat.Persistence", "Automat.Persistence\Automat.Persistence.csproj", "{595A28E3-5CB7-464E-8B17-9446F5188B11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automat.ProductApi", "Automat.ProductApi\Automat.ProductApi.csproj", "{4E1FC55C-32AA-4AC6-B300-E814A794D16A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{6BD33C7F-7917-4EEB-88FE-42C6B875D1DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +65,14 @@ Global
 		{595A28E3-5CB7-464E-8B17-9446F5188B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{595A28E3-5CB7-464E-8B17-9446F5188B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{595A28E3-5CB7-464E-8B17-9446F5188B11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E1FC55C-32AA-4AC6-B300-E814A794D16A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E1FC55C-32AA-4AC6-B300-E814A794D16A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E1FC55C-32AA-4AC6-B300-E814A794D16A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E1FC55C-32AA-4AC6-B300-E814A794D16A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD33C7F-7917-4EEB-88FE-42C6B875D1DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD33C7F-7917-4EEB-88FE-42C6B875D1DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD33C7F-7917-4EEB-88FE-42C6B875D1DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD33C7F-7917-4EEB-88FE-42C6B875D1DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +85,7 @@ Global
 		{0240BFA6-491C-48ED-A21D-EF3010D41E88} = {CA458A31-FD21-4EEB-92BB-360F7F2F850B}
 		{1E873992-0BF6-42E4-9794-379709FE3C85} = {EFCB01D4-54E0-4643-9439-1671EA808AEE}
 		{595A28E3-5CB7-464E-8B17-9446F5188B11} = {EFCB01D4-54E0-4643-9439-1671EA808AEE}
+		{4E1FC55C-32AA-4AC6-B300-E814A794D16A} = {FCE72066-F553-4F4D-912C-69F6984C6981}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EF58477-9CE1-46C3-A56A-FF520357DD4C}

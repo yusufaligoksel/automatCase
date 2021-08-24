@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Automat.Domain.Entities
 {
-    public class CategoryFeature
+    public class CategoryFeature:BaseEntity
     {
         public CategoryFeature()
         {

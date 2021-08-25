@@ -12,6 +12,7 @@ namespace Automat.Domain.Entities
         public Product()
         {
             this.AutomatSlotProducts = new List<AutomatSlotProduct>();
+            this.ShoppingCarts = new List<ShoppingCart>();
         }
         public string Name { get; set; }
         [ForeignKey("CategoryId")]
@@ -20,5 +21,6 @@ namespace Automat.Domain.Entities
         public bool IsDeleted { get; set; }
         public Category Category { get; set; }
         public virtual IEnumerable<AutomatSlotProduct> AutomatSlotProducts { get; set; }
+        public virtual IEnumerable<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

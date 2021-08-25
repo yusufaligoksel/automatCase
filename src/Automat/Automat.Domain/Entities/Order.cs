@@ -23,6 +23,7 @@ namespace Automat.Domain.Entities
         public int SlotId { get; set; }
         public decimal PaymentTotal { get; set; }
         public decimal? RefundAmount { get; set; }
+        public DateTime OrderDate { get; set; }
         public virtual IEnumerable<OrderDetail> OrderDetails { get; set; }
     }
 }

@@ -9,6 +9,11 @@ namespace Automat.Domain.Entities
 {
     public class CategoryFeatureOption : BaseEntity
     {
+        public CategoryFeatureOption()
+        {
+            this.ShoppingCarts = new List<ShoppingCart>();
+            this.OrderProductFeatureOptions = new List<OrderProductFeatureOption>();
+        }
         [ForeignKey("CategoryFeatureId")]
         public int CategoryFeatureId { get; set; }
         /// <summary>
@@ -20,5 +25,7 @@ namespace Automat.Domain.Entities
         /// </summary>
         public bool IsSelectQuantity { get; set; }
         public CategoryFeature CategoryFeature { get; set; }
+        public virtual IEnumerable<OrderProductFeatureOption> OrderProductFeatureOptions { get; set; }
+        public virtual IEnumerable<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

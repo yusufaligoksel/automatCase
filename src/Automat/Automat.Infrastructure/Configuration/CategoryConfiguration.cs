@@ -16,6 +16,8 @@ namespace Automat.Infrastructure.Configuration
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(200);
             builder.Property(x => x.IsDeleted).IsRequired();
+            builder.Property(x => x.CreatedDate).HasColumnType("datetime");
+            builder.Property(x => x.ModifiedDate).HasColumnType("datetime");
         }
     }
 }

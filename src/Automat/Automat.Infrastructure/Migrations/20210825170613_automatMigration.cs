@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Automat.Infrastructure.Migrations
 {
-    public partial class automat_migration : Migration
+    public partial class automatMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,8 +14,8 @@ namespace Automat.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SlotNumber = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -31,8 +31,8 @@ namespace Automat.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     ParentId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,8 +52,9 @@ namespace Automat.Infrastructure.Migrations
                     SlotId = table.Column<int>(type: "int", maxLength: 1000, nullable: false),
                     PaymentTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     RefundAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    OrderDate = table.Column<DateTime>(type: "datetime", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,8 +68,8 @@ namespace Automat.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -83,8 +84,8 @@ namespace Automat.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -107,8 +108,8 @@ namespace Automat.Infrastructure.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -131,8 +132,8 @@ namespace Automat.Infrastructure.Migrations
                     PaymentId = table.Column<int>(type: "int", nullable: false),
                     RefundPaymentStatus = table.Column<bool>(type: "bit", nullable: false),
                     PaymentTypeId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -154,8 +155,8 @@ namespace Automat.Infrastructure.Migrations
                     CategoryFeatureId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     IsSelectQuantity = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -177,8 +178,8 @@ namespace Automat.Infrastructure.Migrations
                     SlotId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     AutomatSlotId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -207,8 +208,8 @@ namespace Automat.Infrastructure.Migrations
                     ProductId = table.Column<int>(type: "int", maxLength: 1000, nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -228,6 +229,39 @@ namespace Automat.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ShoppingCarts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProcessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    FeatureOptionId = table.Column<int>(type: "int", nullable: true),
+                    FeatureOptionQuantity = table.Column<int>(type: "int", nullable: true),
+                    CategoryFeatureOptionId = table.Column<int>(type: "int", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCarts_CategoryFeatureOptions_CategoryFeatureOptionId",
+                        column: x => x.CategoryFeatureOptionId,
+                        principalTable: "CategoryFeatureOptions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCarts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderProductFeatureOptions",
                 columns: table => new
                 {
@@ -237,8 +271,8 @@ namespace Automat.Infrastructure.Migrations
                     FeatureOptionId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: true),
                     CategoryFeatureOptionId = table.Column<int>(type: "int", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    CreatedDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -306,6 +340,16 @@ namespace Automat.Infrastructure.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCarts_CategoryFeatureOptionId",
+                table: "ShoppingCarts",
+                column: "CategoryFeatureOptionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCarts_ProductId",
+                table: "ShoppingCarts",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -320,10 +364,10 @@ namespace Automat.Infrastructure.Migrations
                 name: "PaymentTypeOptions");
 
             migrationBuilder.DropTable(
-                name: "AutomatSlots");
+                name: "ShoppingCarts");
 
             migrationBuilder.DropTable(
-                name: "CategoryFeatureOptions");
+                name: "AutomatSlots");
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");
@@ -332,13 +376,16 @@ namespace Automat.Infrastructure.Migrations
                 name: "PaymentTypes");
 
             migrationBuilder.DropTable(
-                name: "CategoryFeatures");
+                name: "CategoryFeatureOptions");
 
             migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "CategoryFeatures");
 
             migrationBuilder.DropTable(
                 name: "Categories");

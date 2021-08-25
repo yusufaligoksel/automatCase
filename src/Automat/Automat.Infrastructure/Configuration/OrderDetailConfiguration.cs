@@ -18,6 +18,8 @@ namespace Automat.Infrastructure.Configuration
             builder.Property(x => x.ProductId).IsRequired().HasMaxLength(1000);
             builder.Property(x => x.Quantity).IsRequired();
             builder.Property(x => x.UnitPrice).IsRequired().HasColumnType("decimal(18,2)");
+            builder.Property(x => x.CreatedDate).HasColumnType("datetime");
+            builder.Property(x => x.ModifiedDate).HasColumnType("datetime");
         }
     }
 }

@@ -16,6 +16,8 @@ namespace Automat.Infrastructure.Configuration
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
             builder.Property(x => x.RefundPaymentStatus).IsRequired();
+            builder.Property(x => x.CreatedDate).HasColumnType("datetime");
+            builder.Property(x => x.ModifiedDate).HasColumnType("datetime");
         }
     }
 }

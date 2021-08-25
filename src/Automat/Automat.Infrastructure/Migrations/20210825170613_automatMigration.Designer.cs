@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Automat.Infrastructure.Migrations
 {
     [DbContext(typeof(AutomatContext))]
-    [Migration("20210824192510_automat_migration")]
-    partial class automat_migration
+    [Migration("20210825170613_automatMigration")]
+    partial class automatMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,10 +29,10 @@ namespace Automat.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("SlotNumber")
                         .HasColumnType("int");
@@ -53,10 +53,10 @@ namespace Automat.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -81,13 +81,13 @@ namespace Automat.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -113,10 +113,10 @@ namespace Automat.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -141,13 +141,13 @@ namespace Automat.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("IsSelectQuantity")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -169,13 +169,16 @@ namespace Automat.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<Guid>("OrderCode")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime");
 
                     b.Property<byte>("OrderStatus")
                         .HasMaxLength(800)
@@ -210,10 +213,10 @@ namespace Automat.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -248,13 +251,13 @@ namespace Automat.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("FeatureOptionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<int>("OrderDetailId")
                         .HasColumnType("int");
@@ -279,10 +282,10 @@ namespace Automat.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -302,10 +305,10 @@ namespace Automat.Infrastructure.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -339,13 +342,13 @@ namespace Automat.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -360,6 +363,49 @@ namespace Automat.Infrastructure.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Automat.Domain.Entities.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CategoryFeatureOptionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int?>("FeatureOptionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FeatureOptionQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<Guid>("ProcessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryFeatureOptionId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Automat.Domain.Entities.AutomatSlotProduct", b =>
@@ -423,7 +469,7 @@ namespace Automat.Infrastructure.Migrations
             modelBuilder.Entity("Automat.Domain.Entities.OrderProductFeatureOption", b =>
                 {
                     b.HasOne("Automat.Domain.Entities.CategoryFeatureOption", "CategoryFeatureOption")
-                        .WithMany()
+                        .WithMany("OrderProductFeatureOptions")
                         .HasForeignKey("CategoryFeatureOptionId");
 
                     b.HasOne("Automat.Domain.Entities.OrderDetail", "OrderDetail")
@@ -457,6 +503,23 @@ namespace Automat.Infrastructure.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Automat.Domain.Entities.ShoppingCart", b =>
+                {
+                    b.HasOne("Automat.Domain.Entities.CategoryFeatureOption", "CategoryFeatureOption")
+                        .WithMany("ShoppingCarts")
+                        .HasForeignKey("CategoryFeatureOptionId");
+
+                    b.HasOne("Automat.Domain.Entities.Product", "Product")
+                        .WithMany("ShoppingCarts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CategoryFeatureOption");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Automat.Domain.Entities.AutomatSlot", b =>
                 {
                     b.Navigation("AutomatSlotProducts");
@@ -470,6 +533,13 @@ namespace Automat.Infrastructure.Migrations
             modelBuilder.Entity("Automat.Domain.Entities.CategoryFeature", b =>
                 {
                     b.Navigation("CategoryFeatureOptions");
+                });
+
+            modelBuilder.Entity("Automat.Domain.Entities.CategoryFeatureOption", b =>
+                {
+                    b.Navigation("OrderProductFeatureOptions");
+
+                    b.Navigation("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Automat.Domain.Entities.Order", b =>
@@ -490,6 +560,8 @@ namespace Automat.Infrastructure.Migrations
             modelBuilder.Entity("Automat.Domain.Entities.Product", b =>
                 {
                     b.Navigation("AutomatSlotProducts");
+
+                    b.Navigation("ShoppingCarts");
                 });
 #pragma warning restore 612, 618
         }

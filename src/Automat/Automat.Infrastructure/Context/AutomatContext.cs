@@ -25,6 +25,7 @@ namespace Automat.Infrastructure.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<PaymentTypeOption> PaymentTypeOptions { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

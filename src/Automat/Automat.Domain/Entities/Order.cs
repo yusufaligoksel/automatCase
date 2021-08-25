@@ -25,5 +25,7 @@ namespace Automat.Domain.Entities
         public decimal? RefundAmount { get; set; }
         public DateTime OrderDate { get; set; }
         public virtual IEnumerable<OrderDetail> OrderDetails { get; set; }
+        public PaymentTypeOption PaymentTypeOption { get; set; }
+        public AutomatSlot AutomatSlot { get; set; }
     }
 }

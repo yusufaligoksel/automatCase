@@ -7,11 +7,18 @@
   <ItemGroup>
     <Folder Include="Handlers\Product\Commands\" />
     <Folder Include="Handlers\Product\Queries\" />
+    <Folder Include="Handlers\ShoppingCart\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.3.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Automat.Domain\Automat.Domain.csproj" />
+    <ProjectReference Include="..\Automat.Persistence\Automat.Persistence.csproj" />
+    <ProjectReference Include="..\SharedLibrary\SharedLibrary.csproj" />
   </ItemGroup>
 
 </Project>

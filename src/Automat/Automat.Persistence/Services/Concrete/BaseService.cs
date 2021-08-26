@@ -21,15 +21,31 @@ namespace Automat.Persistence.Services.Concrete
             return _repository.Find(id);
         }
 
+        public async Task<TEntity> FindAsync(object id)
+        {
+            return await _repository.FindAsync(id);
+        }
+
         public IEnumerable<TEntity> GetList()
         {
             return _repository.GetList();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetListAsync()
+        {
+            return await _repository.GetListAsync();
         }
 
         public TEntity Insert(TEntity entity)
         {
             _repository.Insert(entity);
             return entity;
+        }
+
+        public async Task<TEntity> InsertAsync(TEntity entity)
+        {
+            var result = await _repository.InsertAsync(entity);
+            return result;
         }
 
         public IEnumerable<TEntity> Insert(List<TEntity> entities)
@@ -43,6 +59,11 @@ namespace Automat.Persistence.Services.Concrete
             _repository.Update(entity);
         }
 
+        public async void UpdateAsync(TEntity entity)
+        {
+            _repository.UpdateAsync(entity);
+        }
+
         public void Update(List<TEntity> entities)
         {
             _repository.UpdateRange(entities);
@@ -53,6 +74,11 @@ namespace Automat.Persistence.Services.Concrete
             _repository.Delete(entity);
         }
 
+        public async void DeleteAsync(TEntity entity)
+        {
+            _repository.DeleteAsync(entity);
+        }
+
         public void Delete(List<TEntity> entities)
         {
             _repository.DeleteRange(entities);
@@ -61,6 +87,11 @@ namespace Automat.Persistence.Services.Concrete
         public void Delete(object id)
         {
             _repository.Delete(id);
+        }
+
+        public async void DeleteAsync(object id)
+        {
+            _repository.DeleteAsync(id);
         }
     }
 }

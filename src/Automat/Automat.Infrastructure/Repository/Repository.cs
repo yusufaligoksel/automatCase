@@ -76,16 +76,17 @@ namespace Automat.Infrastructure.Repository
             _context.SaveChanges();
         }
 
-        public void InsertAsync(TEntity entity)
+        public async Task<TEntity> InsertAsync(TEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            _entities.AddAsync(entity);
+            await _entities.AddAsync(entity);
             _context.Entry(entity).State = EntityState.Added;
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
         public void InsertRange(List<TEntity> entities)
@@ -111,11 +112,11 @@ namespace Automat.Infrastructure.Repository
             _context.SaveChanges();
         }
 
-        public void UpdateAsync(TEntity entity)
+        public async void UpdateAsync(TEntity entity)
         {
             _entities.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public void UpdateRange(List<TEntity> entities)
@@ -141,11 +142,11 @@ namespace Automat.Infrastructure.Repository
             _context.SaveChanges();
         }
 
-        public void DeleteAsync(object id)
+        public async void DeleteAsync(object id)
         {
-            var entity = FindAsync(id);
+            var entity = await FindAsync(id);
             _context.Remove(entity);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public void Delete(TEntity entity)
@@ -154,10 +155,10 @@ namespace Automat.Infrastructure.Repository
             _context.SaveChanges();
         }
 
-        public void DeleteAsync(TEntity entity)
+        public async void DeleteAsync(TEntity entity)
         {
             _context.Remove(entity);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public void DeleteRange(List<TEntity> entities)

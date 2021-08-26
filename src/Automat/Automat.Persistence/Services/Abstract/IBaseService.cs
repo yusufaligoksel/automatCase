@@ -10,17 +10,23 @@ namespace Automat.Persistence.Services.Abstract
     {
         #region GetData
         TEntity Find(object id);
+        Task<TEntity> FindAsync(object id);
         IEnumerable<TEntity> GetList();
+        Task<IEnumerable<TEntity>> GetListAsync();
         #endregion
 
         #region DataActionMethod
         TEntity Insert(TEntity entity);
+        Task<TEntity> InsertAsync(TEntity entity);
         IEnumerable<TEntity> Insert(List<TEntity> entities);
         void Update(TEntity entity);
+        void UpdateAsync(TEntity entity);
         void Update(List<TEntity> entities);
         void Delete(TEntity entity);
+        void DeleteAsync(TEntity entity);
         void Delete(List<TEntity> entities);
         void Delete(object id);
+        void DeleteAsync(object id);
         #endregion
     }
 }

@@ -22,7 +22,7 @@ namespace Automat.Infrastructure.Repository
 
         #region DataAction
         void Insert(TEntity entity);
-        void InsertAsync(TEntity entity);
+        Task<TEntity> InsertAsync(TEntity entity);
         void InsertRange(List<TEntity> entities);
 
         void Update(TEntity entity);

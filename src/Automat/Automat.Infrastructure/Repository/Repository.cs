@@ -73,7 +73,19 @@ namespace Automat.Infrastructure.Repository
 
             _entities.Add(entity);
             _context.Entry(entity).State = EntityState.Added;
-            //_context.SaveChanges();
+            _context.SaveChanges();
+        }
+
+        public void InsertAsync(TEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            _entities.AddAsync(entity);
+            _context.Entry(entity).State = EntityState.Added;
+            _context.SaveChangesAsync();
         }
 
         public void InsertRange(List<TEntity> entities)
@@ -89,14 +101,21 @@ namespace Automat.Infrastructure.Repository
                 _context.Entry(item).State = EntityState.Added;
             }
 
-            //_context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Update(TEntity entity)
         {
             _entities.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            //_context.SaveChanges();
+            _context.SaveChanges();
+        }
+
+        public void UpdateAsync(TEntity entity)
+        {
+            _entities.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.SaveChangesAsync();
         }
 
         public void UpdateRange(List<TEntity> entities)
@@ -112,20 +131,33 @@ namespace Automat.Infrastructure.Repository
                 _context.Entry(item).State = EntityState.Modified;
             }
 
-            //_context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Delete(object id)
         {
             var entity = Find(id);
             _context.Remove(entity);
-            //_context.SaveChanges();
+            _context.SaveChanges();
+        }
+
+        public void DeleteAsync(object id)
+        {
+            var entity = FindAsync(id);
+            _context.Remove(entity);
+            _context.SaveChangesAsync();
         }
 
         public void Delete(TEntity entity)
         {
             _context.Remove(entity);
-            //_context.SaveChanges();
+            _context.SaveChanges();
+        }
+
+        public void DeleteAsync(TEntity entity)
+        {
+            _context.Remove(entity);
+            _context.SaveChangesAsync();
         }
 
         public void DeleteRange(List<TEntity> entities)
@@ -138,7 +170,7 @@ namespace Automat.Infrastructure.Repository
             foreach (var item in entities)
             {
                 _context.Remove(item);
-                //_context.SaveChanges();
+                _context.SaveChanges();
             }
         }
 

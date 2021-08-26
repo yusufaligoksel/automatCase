@@ -22,13 +22,17 @@ namespace Automat.Infrastructure.Repository
 
         #region DataAction
         void Insert(TEntity entity);
+        void InsertAsync(TEntity entity);
         void InsertRange(List<TEntity> entities);
 
         void Update(TEntity entity);
+        void UpdateAsync(TEntity entity);
         void UpdateRange(List<TEntity> entities);
 
         void Delete(object id);
+        void DeleteAsync(object id);
         void Delete(TEntity entity);
+        void DeleteAsync(TEntity entity);
         void DeleteRange(List<TEntity> entities);
         #endregion
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Automat.Domain.Entities;
 using Automat.Infrastructure.Repository;
 using Automat.Persistence.Services.Abstract;
+using Microsoft.EntityFrameworkCore;
 
 namespace Automat.Persistence.Services.Concrete
 {
@@ -15,6 +16,11 @@ namespace Automat.Persistence.Services.Concrete
         public ShoppingCartService(IRepository<ShoppingCart> repository) : base(repository)
         {
             _repository = repository;
+        }
+
+        public async Task<ShoppingCart> GetCartByProcessId(Guid processId)
+        {
+            return await _repository.Table.FirstOrDefaultAsync(x => x.ProcessId == processId);
         }
     }
 }

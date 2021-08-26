@@ -12,7 +12,6 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
         public AddToCartCommandValidator()
         {
             RuleFor(x => x.ProductId).NotNull().LessThanOrEqualTo(0).WithMessage("Lütfen bir ürün seçiniz.");
-            RuleFor(x => x.ProductId).GreaterThan(100).WithMessage("Hatalı seçenek seçimi yaptınız. Lütfen doğru seçim yapınız.");
         }
     }
 }

@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Automat.Application.Handlers.ShoppingCart.Commands;
+using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
+using Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCommand;
 using Automat.Infrastructure.Repository;
 using Automat.Persistence.Services.Abstract;
 using Automat.Persistence.Services.Concrete;
@@ -43,10 +45,14 @@ namespace Automat.ShoppingCartApi
             #region MediatR
             services.AddMediatR(typeof(Startup));
             services.AddMediatR(typeof(AddToCartCommand));
+            services.AddMediatR(typeof(SelectProductQuantityCommand));
+            services.AddMediatR(typeof(SelectPaymentMethodCommand));
             #endregion
 
             #region FluentValidation
             services.AddTransient<IValidator<AddToCartCommand>, AddToCartCommandValidator>();
+            services.AddTransient<IValidator<SelectProductQuantityCommand>, SelectProductQuantityCommandValidator>();
+            services.AddTransient<IValidator<SelectPaymentMethodCommand>, SelectPaymentMethodCommandValidator>();
             #endregion
 
             #region ServiceInjection
@@ -54,8 +60,17 @@ namespace Automat.ShoppingCartApi
             services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IShoppingCartService, ShoppingCartService>();
+            services.AddScoped<ICategoryFeatureService, CategoryFeatureService>();
             services.AddScoped<ICategoryFeatureOptionService, CategoryFeatureOptionService>();
             services.AddScoped<IProcessService, ProcessService>();
+            services.AddScoped<IPaymentTypeOptionService, PaymentTypeOptionService>();
+            services.AddScoped<IPaymentTypeService, PaymentTypeService>();
+            services.AddScoped<IAutomatSlotService, AutomatSlotService>();
+            services.AddScoped<IAutomatSlotProductService, AutomatSlotProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderDetailService, OrderDetailService>();
+            services.AddScoped<IOrderProductFeatureOptionService, OrderProductFeatureOptionService>();
             #endregion
         }
 

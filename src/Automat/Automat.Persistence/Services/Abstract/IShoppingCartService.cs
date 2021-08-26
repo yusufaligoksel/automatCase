@@ -8,7 +8,8 @@ using Automat.Infrastructure.Repository;
 
 namespace Automat.Persistence.Services.Abstract
 {
-    public interface IShoppingCartService:IBaseService<ShoppingCart>
+    public interface IShoppingCartService : IBaseService<ShoppingCart>
     {
+        Task<ShoppingCart> GetCartByProcessId(Guid processId);
     }
 }

@@ -9,5 +9,6 @@ namespace Automat.Persistence.Services.Abstract
 {
     public interface IPaymentTypeOptionService:IBaseService<PaymentTypeOption>
     {
+        Task<PaymentTypeOption> GetById(int id);
     }
 }

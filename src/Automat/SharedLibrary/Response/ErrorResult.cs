@@ -9,7 +9,7 @@ namespace SharedLibrary.Response
 {
     public class ErrorResult
     {
-        public Dictionary<string, List<string>> Validation { get; set; }
+        public Dictionary<string, string> Validation { get; set; }
         public string Message { get; set; }
 
         public ErrorResult(string error)
@@ -17,7 +17,7 @@ namespace SharedLibrary.Response
             this.Message = error;
         }
 
-        public ErrorResult(Dictionary<string, List<string>> errors, string error="Validation Fail!")
+        public ErrorResult(Dictionary<string, string> errors, string error="Validation Fail!")
         {
             this.Validation = errors;
             this.Message = error;

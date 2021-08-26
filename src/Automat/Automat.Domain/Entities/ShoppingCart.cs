@@ -17,7 +17,9 @@ namespace Automat.Domain.Entities
         [ForeignKey("FeatureOptionId")]
         public int? FeatureOptionId { get; set; }
         public int? FeatureOptionQuantity { get; set; }
+        public int? PaymentTypeOptionId { get; set; }
         public Product Product { get; set; }
         public CategoryFeatureOption CategoryFeatureOption { get; set; }
+        public PaymentTypeOption PaymentTypeOption { get; set; }
     }
 }

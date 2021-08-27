@@ -19,7 +19,7 @@ namespace Automat.OrderApi.Controllers
         }
 
         [HttpPost]
-        [Route("[controller]/[action]")]
+        [Route("order/pay")]
         public async Task<IActionResult> Pay([FromBody] OrderPayCommand request)
         {
             var result = await _mediator.Send(request);

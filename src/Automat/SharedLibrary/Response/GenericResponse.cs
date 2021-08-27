@@ -14,14 +14,14 @@ namespace SharedLibrary.Response
         public T Result { get; set; }
         public ErrorResult ErrorResult { get; set; }
 
-        public static GenericResponse<T> SuccessResponse(T result,int statusCode, string message = "Ok")
+        public static GenericResponse<T> SuccessResponse(T result, int statusCode, string message = "OK")
         {
-            return new GenericResponse<T> { Result = result, StatusCode = statusCode, Message = message };
+            return new GenericResponse<T> { Success = true, Result = result, StatusCode = statusCode, Message = message };
         }
 
-        public static GenericResponse<T> ErrorResponse(ErrorResult error, int statusCode, string message="Fail")
+        public static GenericResponse<T> ErrorResponse(ErrorResult error, int statusCode, string message = "Fail")
         {
-            return new GenericResponse<T> { ErrorResult = error, StatusCode = statusCode, Message = message};
+            return new GenericResponse<T> { Success = false, ErrorResult = error, StatusCode = statusCode, Message = message };
         }
     }
 }

@@ -13,9 +13,7 @@ namespace Automat.Domain.Entities
         {
             this.OrderProductFeatureOptions = new List<OrderProductFeatureOption>();
         }
-        [ForeignKey("OrderId")]
         public int OrderId { get; set; }
-        [ForeignKey("ProductId")]
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }

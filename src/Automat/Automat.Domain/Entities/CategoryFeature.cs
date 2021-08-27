@@ -13,8 +13,6 @@ namespace Automat.Domain.Entities
         {
             this.CategoryFeatureOptions = new List<CategoryFeatureOption>();
         }
-
-        [ForeignKey("CategoryId")]
         public int CategoryId { get; set; }
         /// <summary>
         /// Ana title Şeker durumu

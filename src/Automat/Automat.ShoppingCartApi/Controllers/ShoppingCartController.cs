@@ -22,7 +22,7 @@ namespace Automat.ShoppingCartApi.Controllers
         }
 
         [HttpPost]
-        [Route("[controller]/[action]")]
+        [Route("shopping/addtocart")]
         public async Task<IActionResult> AddToCart([FromBody] AddToCartCommand request)
         {
             var result = await _mediator.Send(request);
@@ -30,7 +30,7 @@ namespace Automat.ShoppingCartApi.Controllers
         }
 
         [HttpPost]
-        [Route("[controller]/[action]")]
+        [Route("shopping/selectquantity")]
         public async Task<IActionResult> SelectProductQuantity([FromBody] SelectProductQuantityCommand request)
         {
             var result = await _mediator.Send(request);
@@ -38,12 +38,11 @@ namespace Automat.ShoppingCartApi.Controllers
         }
 
         [HttpPost]
-        [Route("[controller]/[action]")]
+        [Route("shopping/selectpaymentmethod")]
         public async Task<IActionResult> SelectPaymentMethod([FromBody] SelectPaymentMethodCommand request)
         {
             var result = await _mediator.Send(request);
             return CreateActionResult(result, result.StatusCode);
         }
-
     }
 }

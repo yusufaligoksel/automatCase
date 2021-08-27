@@ -15,7 +15,6 @@ namespace Automat.Domain.Entities
             this.ShoppingCarts = new List<ShoppingCart>();
         }
         public string Name { get; set; }
-        [ForeignKey("CategoryId")]
         public int CategoryId { get; set; }
         public decimal Price { get; set; }
         public bool IsDeleted { get; set; }

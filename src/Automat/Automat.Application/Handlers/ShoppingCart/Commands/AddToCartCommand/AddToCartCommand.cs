@@ -12,6 +12,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
 {
     public class AddToCartCommand : IRequest<GenericResponse<CartResultDto>>
     {
+        public int SlotId { get; set; }
         public int ProductId { get; set; }
         public int? FeatureOptionId { get; set; }
         public int? FeatureOptionQuantity { get; set; }
@@ -22,17 +23,20 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
             private readonly IProductService _productService;
             private readonly ICategoryFeatureOptionService _categoryFeatureOptionService;
             private readonly IProcessService _processService;
+            private readonly IAutomatSlotProductService _automatSlotProductService;
             public AddToCartCommandHandler(IValidator<AddToCartCommand> addTocartValidator,
                 IShoppingCartService shoppingCartService,
                 IProductService productService,
                 ICategoryFeatureOptionService categoryFeatureOptionService,
-                IProcessService processService)
+                IProcessService processService,
+                IAutomatSlotProductService automatSlotProductService)
             {
                 _addTocartValidator = addTocartValidator;
                 _shoppingCartService = shoppingCartService;
                 _productService = productService;
                 _categoryFeatureOptionService = categoryFeatureOptionService;
                 _processService = processService;
+                _automatSlotProductService = automatSlotProductService;
             }
             public async Task<GenericResponse<CartResultDto>> Handle(AddToCartCommand request, CancellationToken cancellationToken)
             {
@@ -52,6 +56,19 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                         ErrorResult error = new(errors);
                         return GenericResponse<CartResultDto>.ErrorResponse(error, statusCode: 400);
                     }
+
+                    #region AutomatSlotProduct
+
+                    var checkautomatProduct =
+                        await _automatSlotProductService.CheckAutomatSlotProduct(slotId: request.SlotId,
+                            productId: request.ProductId);
+
+                    if (!checkautomatProduct)
+                    {
+                        ErrorResult error = new("Seçilen slot ile ürün eşleşmiyor. Hatalı seçim yapıldı.");
+                        return GenericResponse<CartResultDto>.ErrorResponse(error, statusCode: 400);
+                    }
+                    #endregion
 
                     #region FeatureOption
                     if (request.FeatureOptionId.HasValue)
@@ -77,7 +94,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                     #endregion
 
                     #region Product
-                    if (product != null)
+                    if (product == null)
                     {
                         ErrorResult error = new("Hatalı bir ürün seçimi yaptınız. Lütfen doğru bir ürün seçimi yapınız.");
                         return GenericResponse<CartResultDto>.ErrorResponse(error, statusCode: 400);
@@ -90,9 +107,10 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                     {
                         ProcessId = _processService.GenerateProcessId(),
                         ProductId = request.ProductId,
-                        PaymentTypeOptionId = request.FeatureOptionId,
+                        AutomatSlotId = request.SlotId,
+                        CategoryFeatureOptionId = request.FeatureOptionId,
                         FeatureOptionQuantity = request.FeatureOptionQuantity,
-                        Quantity = Int32.MinValue,
+                        Quantity = 0,
                         UnitPrice = product.Price,
                         CreatedDate = DateTime.Now
                     };
@@ -102,7 +120,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                     var result = new CartResultDto
                     {
                         ProcessId = cart.ProcessId,
-                        CartItem = new CartProductDto(product.Id, product.Name, cart.FeatureOptionId, feautureOptionName, cart.FeatureOptionQuantity),
+                        CartItem = new CartProductDto(product.Id, product.Name, cart.CategoryFeatureOptionId, feautureOptionName, cart.FeatureOptionQuantity),
                         Message = "Ürün seçimi yapıldı."
                     };
 

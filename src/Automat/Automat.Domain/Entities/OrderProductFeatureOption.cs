@@ -11,11 +11,11 @@ namespace Automat.Domain.Entities
     {
         [ForeignKey("OrderDetailId")]
         public int OrderDetailId { get; set; }
-        [ForeignKey("FeatureOptionId")]
-        public int FeatureOptionId { get; set; }
+        [ForeignKey("CategoryFeatureOptionId")]
+        public int CategoryFeatureOptionId { get; set; }
         public int? Quantity { get; set; }
-        public OrderDetail OrderDetail { get; set; }
-        public CategoryFeatureOption CategoryFeatureOption { get; set; }
+        public virtual OrderDetail OrderDetail { get; set; }
+        public virtual CategoryFeatureOption CategoryFeatureOption { get; set; }
 
     }
 }

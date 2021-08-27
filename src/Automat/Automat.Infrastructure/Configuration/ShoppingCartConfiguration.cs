@@ -16,6 +16,8 @@ namespace Automat.Infrastructure.Configuration
             builder.HasKey(x => x.Id);
             builder.Property(x => x.ProcessId).IsRequired();
             builder.Property(x => x.ProductId).IsRequired();
+            builder.Property(x => x.AutomatSlotId).IsRequired();
+            builder.Property(x => x.CategoryFeatureOptionId);
             builder.Property(x => x.Quantity).IsRequired();
             builder.Property(x => x.UnitPrice).IsRequired().HasColumnType("decimal(18,2)");
             builder.Property(x => x.CreatedDate).HasColumnType("datetime");

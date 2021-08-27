@@ -47,7 +47,7 @@ namespace Automat.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AutomatSlotId")
+                    b.Property<int>("AutomatSlotId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -57,9 +57,6 @@ namespace Automat.Infrastructure.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SlotId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -166,6 +163,10 @@ namespace Automat.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AutomatSlotId")
+                        .HasMaxLength(1000)
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime");
 
@@ -194,11 +195,11 @@ namespace Automat.Infrastructure.Migrations
                     b.Property<decimal?>("RefundAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("SlotId")
-                        .HasMaxLength(1000)
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AutomatSlotId");
+
+                    b.HasIndex("PaymentTypeOptionId");
 
                     b.ToTable("Orders");
                 });
@@ -245,14 +246,11 @@ namespace Automat.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryFeatureOptionId")
+                    b.Property<int>("CategoryFeatureOptionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime");
-
-                    b.Property<int>("FeatureOptionId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime");
@@ -313,10 +311,7 @@ namespace Automat.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("PaymentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PaymentTypeId")
+                    b.Property<int>("PaymentTypeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("RefundPaymentStatus")
@@ -370,20 +365,23 @@ namespace Automat.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AutomatSlotId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CategoryFeatureOptionId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime");
 
-                    b.Property<int?>("FeatureOptionId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("FeatureOptionQuantity")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime");
+
+                    b.Property<int?>("PaymentTypeOptionId")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("ProcessId")
                         .HasColumnType("uniqueidentifier");
@@ -399,7 +397,11 @@ namespace Automat.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AutomatSlotId");
+
                     b.HasIndex("CategoryFeatureOptionId");
+
+                    b.HasIndex("PaymentTypeOptionId");
 
                     b.HasIndex("ProductId");
 
@@ -410,7 +412,9 @@ namespace Automat.Infrastructure.Migrations
                 {
                     b.HasOne("Automat.Domain.Entities.AutomatSlot", "AutomatSlot")
                         .WithMany("AutomatSlotProducts")
-                        .HasForeignKey("AutomatSlotId");
+                        .HasForeignKey("AutomatSlotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Automat.Domain.Entities.Product", "Product")
                         .WithMany("AutomatSlotProducts")
@@ -445,6 +449,25 @@ namespace Automat.Infrastructure.Migrations
                     b.Navigation("CategoryFeature");
                 });
 
+            modelBuilder.Entity("Automat.Domain.Entities.Order", b =>
+                {
+                    b.HasOne("Automat.Domain.Entities.AutomatSlot", "AutomatSlot")
+                        .WithMany()
+                        .HasForeignKey("AutomatSlotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Automat.Domain.Entities.PaymentTypeOption", "PaymentTypeOption")
+                        .WithMany()
+                        .HasForeignKey("PaymentTypeOptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AutomatSlot");
+
+                    b.Navigation("PaymentTypeOption");
+                });
+
             modelBuilder.Entity("Automat.Domain.Entities.OrderDetail", b =>
                 {
                     b.HasOne("Automat.Domain.Entities.Order", "Order")
@@ -468,7 +491,9 @@ namespace Automat.Infrastructure.Migrations
                 {
                     b.HasOne("Automat.Domain.Entities.CategoryFeatureOption", "CategoryFeatureOption")
                         .WithMany("OrderProductFeatureOptions")
-                        .HasForeignKey("CategoryFeatureOptionId");
+                        .HasForeignKey("CategoryFeatureOptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Automat.Domain.Entities.OrderDetail", "OrderDetail")
                         .WithMany("OrderProductFeatureOptions")
@@ -485,7 +510,9 @@ namespace Automat.Infrastructure.Migrations
                 {
                     b.HasOne("Automat.Domain.Entities.PaymentType", "PaymentType")
                         .WithMany("PaymentTypeOptions")
-                        .HasForeignKey("PaymentTypeId");
+                        .HasForeignKey("PaymentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PaymentType");
                 });
@@ -503,9 +530,19 @@ namespace Automat.Infrastructure.Migrations
 
             modelBuilder.Entity("Automat.Domain.Entities.ShoppingCart", b =>
                 {
+                    b.HasOne("Automat.Domain.Entities.AutomatSlot", "AutomatSlot")
+                        .WithMany("ShoppingCarts")
+                        .HasForeignKey("AutomatSlotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Automat.Domain.Entities.CategoryFeatureOption", "CategoryFeatureOption")
                         .WithMany("ShoppingCarts")
                         .HasForeignKey("CategoryFeatureOptionId");
+
+                    b.HasOne("Automat.Domain.Entities.PaymentTypeOption", "PaymentTypeOption")
+                        .WithMany()
+                        .HasForeignKey("PaymentTypeOptionId");
 
                     b.HasOne("Automat.Domain.Entities.Product", "Product")
                         .WithMany("ShoppingCarts")
@@ -513,7 +550,11 @@ namespace Automat.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("AutomatSlot");
+
                     b.Navigation("CategoryFeatureOption");
+
+                    b.Navigation("PaymentTypeOption");
 
                     b.Navigation("Product");
                 });
@@ -521,6 +562,8 @@ namespace Automat.Infrastructure.Migrations
             modelBuilder.Entity("Automat.Domain.Entities.AutomatSlot", b =>
                 {
                     b.Navigation("AutomatSlotProducts");
+
+                    b.Navigation("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Automat.Domain.Entities.Category", b =>

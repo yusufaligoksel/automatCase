@@ -15,7 +15,7 @@ namespace Automat.Infrastructure.Configuration
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.OrderDetailId).IsRequired();
-            builder.Property(x => x.FeatureOptionId).IsRequired();
+            builder.Property(x => x.CategoryFeatureOptionId).IsRequired();
             builder.Property(x => x.Quantity);
             builder.Property(x => x.CreatedDate).HasColumnType("datetime");
             builder.Property(x => x.ModifiedDate).HasColumnType("datetime");

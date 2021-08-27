@@ -14,7 +14,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
 {
     public class SelectProductQuantityCommand : IRequest<GenericResponse<SelectQuantityResultDto>>
     {
-        public Guid ProcessId { get; set; }
+        public string ProcessId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
     }
@@ -57,7 +57,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
                 #endregion
 
                 #region Product
-                if (product != null)
+                if (product == null)
                 {
                     ErrorResult error = new("Hatalı bir ürün seçimi yaptınız. Lütfen doğru bir ürün seçimi yapınız.");
                     return GenericResponse<SelectQuantityResultDto>.ErrorResponse(error, statusCode: 400);
@@ -66,7 +66,8 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
 
                 #endregion
 
-                var cart = await _shoppingCartService.GetCartByProcessId(request.ProcessId);
+                Guid processId = new Guid(request.ProcessId);
+                var cart = await _shoppingCartService.GetCartByProcessId(processId);
 
                 if (cart == null)
                 {

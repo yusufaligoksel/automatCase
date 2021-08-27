@@ -85,7 +85,7 @@ namespace Automat.Infrastructure.Repository
 
             await _entities.AddAsync(entity);
             _context.Entry(entity).State = EntityState.Added;
-            await _context.SaveChangesAsync();
+            var saveResult = await _context.SaveChangesAsync();
             return entity;
         }
 
@@ -112,10 +112,8 @@ namespace Automat.Infrastructure.Repository
             _context.SaveChanges();
         }
 
-        public async void UpdateAsync(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
-            _entities.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
 

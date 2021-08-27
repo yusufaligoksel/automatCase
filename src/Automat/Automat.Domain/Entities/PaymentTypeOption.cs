@@ -10,8 +10,7 @@ namespace Automat.Domain.Entities
     public class PaymentTypeOption : BaseEntity
     {
         public string Name { get; set; }
-        [ForeignKey("PaymentId")]
-        public int PaymentId { get; set; }
+        public int PaymentTypeId { get; set; }
 
         /// <summary>
         /// Coin/banknote flag

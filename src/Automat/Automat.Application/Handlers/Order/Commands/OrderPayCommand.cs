@@ -18,7 +18,7 @@ namespace Automat.Application.Handlers.Order.Commands
 {
     public class OrderPayCommand : IRequest<GenericResponse<OrderDto>>
     {
-        public Guid ProcessId { get; set; }
+        public string ProcessId { get; set; }
         public decimal PaidMoney { get; set; }
     }
 
@@ -70,16 +70,17 @@ namespace Automat.Application.Handlers.Order.Commands
                 }
                 #endregion
 
-                var cart = await _shoppingCartService.GetCartByProcessId(request.ProcessId);
+                Guid processId = new Guid(request.ProcessId);
+                var cart = await _shoppingCartService.GetCartByProcessId(processId);
 
                 if (cart == null)
                 {
                     ErrorResult error = new("Hatalı işlem numarası! Sipariş oluşturulamaz.");
                     return GenericResponse<OrderDto>.ErrorResponse(error, statusCode: 400);
                 }
-                
+
                 decimal paymentTotal = PriceCalculateHelper.CalculatePaymentTotal(cart.Quantity, cart.UnitPrice);
-                var paymentTypeOption = await _paymentTypeOptionService.GetById(cart.FeatureOptionId.Value);
+                var paymentTypeOption = await _paymentTypeOptionService.GetById(cart.PaymentTypeOptionId.Value);
                 var product = await _productService.GetById(cart.ProductId);
                 CategoryFeatureOption categoryFeatureOption = new CategoryFeatureOption();
 
@@ -88,7 +89,7 @@ namespace Automat.Application.Handlers.Order.Commands
                 {
                     OrderCode = Guid.NewGuid(),
                     OrderDate = DateTime.Now,
-                    SlotId = cart.SlotId,
+                    AutomatSlotId = cart.AutomatSlotId,
                     ProcessId = cart.ProcessId,
                     OrderStatus = (byte)OrderStatus.Complete,
                     PaymentTotal = paymentTotal,
@@ -112,7 +113,7 @@ namespace Automat.Application.Handlers.Order.Commands
                 }
                 #endregion
 
-                _orderService.InsertAsync(order);
+                await _orderService.InsertAsync(order);
 
                 #region OrderDetail
                 var orderDetail = new OrderDetail
@@ -123,22 +124,22 @@ namespace Automat.Application.Handlers.Order.Commands
                     UnitPrice = cart.UnitPrice,
                     CreatedDate = DateTime.Now
                 };
-                _orderDetailService.InsertAsync(orderDetail);
+                await _orderDetailService.InsertAsync(orderDetail);
                 #endregion
 
                 #region OrderProductFeatureOption
 
-                if (cart.FeatureOptionId.HasValue)
+                if (cart.CategoryFeatureOptionId.HasValue)
                 {
-                    var featureOption = await _categoryFeatureOptionService.GetById(cart.FeatureOptionId.Value);
+                    var featureOption = await _categoryFeatureOptionService.GetById(cart.CategoryFeatureOptionId.Value);
                     var orderProductFeature = new OrderProductFeatureOption
                     {
                         OrderDetailId = orderDetail.Id,
-                        FeatureOptionId = featureOption.Id,
+                        CategoryFeatureOptionId = featureOption.Id,
                         Quantity = cart.FeatureOptionQuantity.HasValue ? cart.FeatureOptionQuantity.Value : 0,
                         CreatedDate = DateTime.Now
                     };
-                    _orderProductFeatureOptionService.InsertAsync(orderProductFeature);
+                    await _orderProductFeatureOptionService.InsertAsync(orderProductFeature);
                     categoryFeatureOption = featureOption;
                 }
                 #endregion
@@ -159,7 +160,7 @@ namespace Automat.Application.Handlers.Order.Commands
                         cart.PaymentTypeOptionId,
                         categoryFeatureOption.Id > 0 ? categoryFeatureOption.Name : "-",
                         cart.FeatureOptionQuantity),
-                    PaymentMethod = new OrderPaymentMethodDto(paymentTypeOption.PaymentId, paymentTypeOption.PaymentType.Name, paymentTypeOption.Id, paymentTypeOption.Name)
+                    PaymentMethod = new OrderPaymentMethodDto(paymentTypeOption.PaymentTypeId, paymentTypeOption.PaymentType.Name, paymentTypeOption.Id, paymentTypeOption.Name)
                 };
                 #endregion
 

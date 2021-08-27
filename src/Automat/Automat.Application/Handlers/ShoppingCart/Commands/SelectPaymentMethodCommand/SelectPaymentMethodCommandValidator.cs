@@ -11,8 +11,8 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
     {
         public SelectPaymentMethodCommandValidator()
         {
-            RuleFor(x => x.ProcessId).NotNull().WithMessage("Hatalı işlem numarası! Ödeme seçimi yapılamaz.");
-            RuleFor(x => x.PaymentTypeOptionId).NotNull().LessThanOrEqualTo(0).WithMessage("Lütfen doğru ödeme tipi seçimi yapınız.");
+            RuleFor(x => x.ProcessId).NotNull().NotEmpty().WithMessage("Hatalı işlem numarası! Ödeme seçimi yapılamaz.");
+            RuleFor(x => x.PaymentTypeOptionId).NotNull().When(x => x.PaymentTypeOptionId == 0).WithMessage("Lütfen doğru ödeme tipi seçimi yapınız.");
         }
     }
 }

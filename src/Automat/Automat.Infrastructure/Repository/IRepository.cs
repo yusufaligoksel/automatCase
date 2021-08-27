@@ -26,7 +26,7 @@ namespace Automat.Infrastructure.Repository
         void InsertRange(List<TEntity> entities);
 
         void Update(TEntity entity);
-        void UpdateAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
         void UpdateRange(List<TEntity> entities);
 
         void Delete(object id);

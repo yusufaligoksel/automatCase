@@ -14,7 +14,6 @@ namespace Automat.Domain.Entities
             this.ShoppingCarts = new List<ShoppingCart>();
             this.OrderProductFeatureOptions = new List<OrderProductFeatureOption>();
         }
-        [ForeignKey("CategoryFeatureId")]
         public int CategoryFeatureId { get; set; }
         /// <summary>
         /// sekerli /sekersiz

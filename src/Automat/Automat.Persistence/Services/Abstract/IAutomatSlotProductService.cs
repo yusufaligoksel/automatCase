@@ -9,5 +9,6 @@ namespace Automat.Persistence.Services.Abstract
 {
     public interface IAutomatSlotProductService : IBaseService<AutomatSlotProduct>
     {
+        Task<bool> CheckAutomatSlotProduct(int slotId, int productId);
     }
 }

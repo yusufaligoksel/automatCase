@@ -11,8 +11,8 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
     {
         public SelectProductQuantityCommandValidator()
         {
-            RuleFor(x => x.ProcessId).NotNull().WithMessage("Hatalı işlem numarası! Adet seçimi yapılamaz.");
-            RuleFor(x => x.Quantity).LessThanOrEqualTo(0).WithMessage("Lütfen adet seçimi yapınız.");
+            RuleFor(x => x.ProcessId).NotNull().NotEmpty().WithMessage("Hatalı işlem numarası! Adet seçimi yapılamaz.");
+            RuleFor(x => x.Quantity).NotNull().When(x => x.ProductId == 0).WithMessage("Lütfen adet seçimi yapınız.");
         }
     }
 }

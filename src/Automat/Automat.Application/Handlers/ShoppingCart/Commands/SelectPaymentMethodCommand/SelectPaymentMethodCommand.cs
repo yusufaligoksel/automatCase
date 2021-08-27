@@ -14,7 +14,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
 {
     public class SelectPaymentMethodCommand : IRequest<GenericResponse<SelectPaymentMethodResultDto>>
     {
-        public Guid ProcessId { get; set; }
+        public string ProcessId { get; set; }
         public int PaymentTypeOptionId { get; set; }
     }
 
@@ -57,7 +57,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
                 #endregion
 
                 #region PaymentTypeOption
-                if (paymentTypeOption != null)
+                if (paymentTypeOption == null)
                 {
                     ErrorResult error = new("Hatalı bir ödeme tipi seçimi yaptınız. Lütfen doğru seçimi yapınız.");
                     return GenericResponse<SelectPaymentMethodResultDto>.ErrorResponse(error, statusCode: 400);
@@ -66,7 +66,8 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
 
                 #endregion
 
-                var cart = await _shoppingCartService.GetCartByProcessId(request.ProcessId);
+                Guid processId = new Guid(request.ProcessId);
+                var cart = await _shoppingCartService.GetCartByProcessId(processId);
 
                 if (cart == null)
                 {
@@ -80,7 +81,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
 
                 var result = new SelectPaymentMethodResultDto
                 {
-                    PaymentTypeId = paymentTypeOption.PaymentId,
+                    PaymentTypeId = paymentTypeOption.PaymentTypeId,
                     PaymentTypeName = paymentTypeOption.PaymentType.Name,
                     PaymentTypeOptionId = paymentTypeOption.Id,
                     PaymentTypeOptionName = paymentTypeOption.Name,

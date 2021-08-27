@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharedLibrary.Response
 {
-    public class GenericResponse<T> where T : class
+    public class GenericResponse<T>
     {
         public bool Success { get; set; }
         public string Message { get; set; }

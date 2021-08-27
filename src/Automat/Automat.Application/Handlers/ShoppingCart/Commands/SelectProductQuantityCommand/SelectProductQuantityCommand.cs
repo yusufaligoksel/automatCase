@@ -75,6 +75,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
                 }
 
                 cart.Quantity = request.Quantity;
+                cart.ModifiedDate = DateTime.Now;
                 _shoppingCartService.UpdateAsync(cart);
 
                 var result = new SelectQuantityResultDto

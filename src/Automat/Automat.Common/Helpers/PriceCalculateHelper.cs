@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Automat.Common.Helpers
 {
-    public static class PriceCalculatorHelper
+    public static class PriceCalculateHelper
     {
         public static decimal CalculateRefundAmount(decimal paymentTotal, decimal paidMoney)
         {

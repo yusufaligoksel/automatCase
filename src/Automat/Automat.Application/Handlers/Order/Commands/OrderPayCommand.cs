@@ -30,12 +30,18 @@ namespace Automat.Application.Handlers.Order.Commands
         private readonly IProcessService _processService;
         private readonly IPaymentTypeOptionService _paymentTypeOptionService;
         private readonly ICategoryFeatureOptionService _categoryFeatureOptionService;
+        private readonly IOrderService _orderService;
+        private readonly IOrderDetailService _orderDetailService;
+        private readonly IOrderProductFeatureOptionService _orderProductFeatureOptionService;
         public OrderPayCommandHandler(IValidator<OrderPayCommand> payValidator,
             IShoppingCartService shoppingCartService,
             IProductService productService,
             IProcessService processService,
             IPaymentTypeOptionService paymentTypeOptionService,
-            ICategoryFeatureOptionService categoryFeatureOptionService)
+            ICategoryFeatureOptionService categoryFeatureOptionService,
+            IOrderService orderService,
+            IOrderDetailService orderDetailService,
+            IOrderProductFeatureOptionService orderProductFeatureOptionService)
         {
             _payValidator = payValidator;
             _shoppingCartService = shoppingCartService;
@@ -43,6 +49,9 @@ namespace Automat.Application.Handlers.Order.Commands
             _processService = processService;
             _paymentTypeOptionService = paymentTypeOptionService;
             _categoryFeatureOptionService = categoryFeatureOptionService;
+            _orderService = orderService;
+            _orderDetailService = orderDetailService;
+            _orderProductFeatureOptionService = orderProductFeatureOptionService;
         }
         public async Task<GenericResponse<OrderDto>> Handle(OrderPayCommand request, CancellationToken cancellationToken)
         {
@@ -65,15 +74,14 @@ namespace Automat.Application.Handlers.Order.Commands
 
                 if (cart == null)
                 {
-                    ErrorResult error = new("Hatalı işlem numarası! Adet seçimi yapılamaz.");
+                    ErrorResult error = new("Hatalı işlem numarası! Sipariş oluşturulamaz.");
                     return GenericResponse<OrderDto>.ErrorResponse(error, statusCode: 400);
                 }
-
-
-                decimal paymentTotal = PriceCalculatorHelper.CalculatePaymentTotal(cart.Quantity, cart.UnitPrice);
+                
+                decimal paymentTotal = PriceCalculateHelper.CalculatePaymentTotal(cart.Quantity, cart.UnitPrice);
                 var paymentTypeOption = await _paymentTypeOptionService.GetById(cart.FeatureOptionId.Value);
                 var product = await _productService.GetById(cart.ProductId);
-                CategoryFeatureOption categoryFeatureOption;
+                CategoryFeatureOption categoryFeatureOption = new CategoryFeatureOption();
 
                 #region Order
                 var order = new Domain.Entities.Order
@@ -84,7 +92,8 @@ namespace Automat.Application.Handlers.Order.Commands
                     ProcessId = cart.ProcessId,
                     OrderStatus = (byte)OrderStatus.Complete,
                     PaymentTotal = paymentTotal,
-                    PaymentTypeOptionId = paymentTypeOption.Id
+                    PaymentTypeOptionId = paymentTypeOption.Id,
+                    CreatedDate = DateTime.Now
                 };
                 #endregion
 
@@ -94,7 +103,7 @@ namespace Automat.Application.Handlers.Order.Commands
                     if (request.PaidMoney > paymentTotal)
                     {
                         order.RefundAmount =
-                            PriceCalculatorHelper.CalculateRefundAmount(paymentTotal, request.PaidMoney);
+                            PriceCalculateHelper.CalculateRefundAmount(paymentTotal, request.PaidMoney);
                     }
                     else
                     {
@@ -103,14 +112,18 @@ namespace Automat.Application.Handlers.Order.Commands
                 }
                 #endregion
 
+                _orderService.InsertAsync(order);
+
                 #region OrderDetail
                 var orderDetail = new OrderDetail
                 {
                     OrderId = order.Id,
                     ProductId = product.Id,
                     Quantity = cart.Quantity,
-                    UnitPrice = cart.UnitPrice
+                    UnitPrice = cart.UnitPrice,
+                    CreatedDate = DateTime.Now
                 };
+                _orderDetailService.InsertAsync(orderDetail);
                 #endregion
 
                 #region OrderProductFeatureOption
@@ -122,13 +135,33 @@ namespace Automat.Application.Handlers.Order.Commands
                     {
                         OrderDetailId = orderDetail.Id,
                         FeatureOptionId = featureOption.Id,
-                        Quantity = cart.FeatureOptionQuantity.HasValue ? cart.FeatureOptionQuantity.Value : 0
+                        Quantity = cart.FeatureOptionQuantity.HasValue ? cart.FeatureOptionQuantity.Value : 0,
+                        CreatedDate = DateTime.Now
                     };
+                    _orderProductFeatureOptionService.InsertAsync(orderProductFeature);
                     categoryFeatureOption = featureOption;
                 }
                 #endregion
 
-                var result = new OrderDto();
+                #region Result
+                var result = new OrderDto
+                {
+                    OrderCode = order.OrderCode,
+                    OrderDate = order.OrderDate,
+                    Message = "Siparişiniz oluşturuldu!",
+                    RefundAmount = order.RefundAmount,
+                    PaymentTotal = order.PaymentTotal,
+                    Product = new OrderProductDto(product.Id,
+                        product.Name,
+                        product.CategoryId,
+                        product.Category.Name,
+                        cart.Quantity,
+                        cart.PaymentTypeOptionId,
+                        categoryFeatureOption.Id > 0 ? categoryFeatureOption.Name : "-",
+                        cart.FeatureOptionQuantity),
+                    PaymentMethod = new OrderPaymentMethodDto(paymentTypeOption.PaymentId, paymentTypeOption.PaymentType.Name, paymentTypeOption.Id, paymentTypeOption.Name)
+                };
+                #endregion
 
                 return GenericResponse<OrderDto>.SuccessResponse(result, 200);
 

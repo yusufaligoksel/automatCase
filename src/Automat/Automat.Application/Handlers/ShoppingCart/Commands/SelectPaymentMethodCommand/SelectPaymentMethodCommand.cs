@@ -75,6 +75,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
                 }
 
                 cart.PaymentTypeOptionId = request.PaymentTypeOptionId;
+                cart.ModifiedDate=DateTime.Now;
                 _shoppingCartService.UpdateAsync(cart);
 
                 var result = new SelectPaymentMethodResultDto

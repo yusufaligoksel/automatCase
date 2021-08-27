@@ -22,5 +22,10 @@ namespace Automat.Persistence.Services.Concrete
         {
             return await _repository.Table.FirstOrDefaultAsync(x => x.ProcessId == processId);
         }
+
+        public async Task<ShoppingCart> GetLastProcess()
+        {
+            return await _repository.Table.LastOrDefaultAsync();
+        }
     }
 }

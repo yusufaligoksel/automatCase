@@ -93,7 +93,8 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                         PaymentTypeOptionId = request.FeatureOptionId,
                         FeatureOptionQuantity = request.FeatureOptionQuantity,
                         Quantity = Int32.MinValue,
-                        UnitPrice = product.Price
+                        UnitPrice = product.Price,
+                        CreatedDate = DateTime.Now
                     };
 
                     await _shoppingCartService.InsertAsync(cart);

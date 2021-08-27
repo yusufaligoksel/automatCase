@@ -11,5 +11,6 @@ namespace Automat.Persistence.Services.Abstract
     public interface IShoppingCartService : IBaseService<ShoppingCart>
     {
         Task<ShoppingCart> GetCartByProcessId(Guid processId);
+        Task<ShoppingCart> GetLastProcess();
     }
 }

@@ -21,6 +21,17 @@ namespace Automat.Domain.Dtos
 
     public class OrderProductDto
     {
+        public OrderProductDto(int productId, string productName, int categoryId, string categoryName, int quantity, int? featureOptionId, string featureName, int? featureQuantity)
+        {
+            ProductId = productId;
+            ProductName = productName;
+            CategoryId = categoryId;
+            CategoryName = categoryName;
+            Quantity = quantity;
+            FeatureOptionId = featureOptionId;
+            FeatureName = featureName;
+            FeatureQuantity = featureQuantity;
+        }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public int CategoryId { get; set; }
@@ -33,6 +44,13 @@ namespace Automat.Domain.Dtos
 
     public class OrderPaymentMethodDto
     {
+        public OrderPaymentMethodDto(int paymentTypeId, string paymentTypeName, int paymentTypeOptionId, string paymentTypeOptionName)
+        {
+            PaymentTypeId = paymentTypeId;
+            PaymentTypeName = paymentTypeName;
+            PaymentTypeOptionId = paymentTypeOptionId;
+            PaymentTypeOptionName = paymentTypeOptionName;
+        }
         public int PaymentTypeId { get; set; }
         public string PaymentTypeName { get; set; }
         public int PaymentTypeOptionId { get; set; }

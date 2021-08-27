@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Handlers\Order\Queries\" />
     <Folder Include="Handlers\Product\Commands\" />
     <Folder Include="Handlers\Product\Queries\" />
     <Folder Include="Handlers\ShoppingCart\Queries\" />

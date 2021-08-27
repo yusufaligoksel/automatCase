@@ -9,5 +9,6 @@ namespace Automat.Persistence.Services.Abstract
 {
     public interface ICategoryFeatureOptionService:IBaseService<CategoryFeatureOption>
     {
+        Task<CategoryFeatureOption> GetById(int id);
     }
 }

@@ -8,15 +8,27 @@ namespace Automat.Common.Helpers
 {
     public static class PriceCalculatorHelper
     {
-        public static decimal CalculateRefundAmount(decimal PaymentTotal, decimal PaidMoney)
+        public static decimal CalculateRefundAmount(decimal paymentTotal, decimal paidMoney)
         {
-            if (PaidMoney > PaymentTotal)
+            if (paidMoney > paymentTotal)
             {
-                return PaidMoney - PaymentTotal;
+                return paidMoney - paymentTotal;
             }
             else
             {
                 throw new Exception("Yetersiz bakiye!");
+            }
+        }
+
+        public static decimal CalculatePaymentTotal(decimal quantity, decimal unitPrice)
+        {
+            try
+            {
+                return quantity * unitPrice;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Toplam tutar hesaplanırken hata oluştu");
             }
         }
     }

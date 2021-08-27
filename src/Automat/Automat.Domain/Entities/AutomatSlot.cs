@@ -11,8 +11,10 @@ namespace Automat.Domain.Entities
         public AutomatSlot()
         {
             this.AutomatSlotProducts = new List<AutomatSlotProduct>();
+            this.ShoppingCarts = new List<ShoppingCart>();
         }
         public int SlotNumber { get; set; }
         public virtual IEnumerable<AutomatSlotProduct> AutomatSlotProducts { get; set; }
+        public virtual IEnumerable<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

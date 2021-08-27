@@ -9,5 +9,6 @@ namespace Automat.Persistence.Services.Abstract
 {
     public interface IProductService:IBaseService<Product>
     {
+        Task<Product> GetById(int id);
     }
 }

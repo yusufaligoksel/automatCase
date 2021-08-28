@@ -65,8 +65,8 @@ namespace Automat.Application.Configuration
             services.AddTransient<IValidator<AddToCartCommand>, AddToCartCommandValidator>();
             services.AddTransient<IValidator<SelectProductQuantityCommand>, SelectProductQuantityCommandValidator>();
             services.AddTransient<IValidator<SelectPaymentMethodCommand>, SelectPaymentMethodCommandValidator>();
-            services.AddTransient<IValidator<OrderPayCommand>, OrderPayCommandValidator>();
-            services.AddTransient<IValidator<OrderPayCommand>, OrderPayCommandValidator>();
+            services.AddTransient<IValidator<AddPaymentTypeOptionCommand>, AddPaymentTypeOptionCommandValidator>();
+            services.AddTransient<IValidator<AddPaymentTypeCommand>, AddPaymentTypeCommandValidator>();
             services.AddTransient<IValidator<OrderPayCommand>, OrderPayCommandValidator>();
             services.AddTransient<IValidator<AddProductCommand>, AddProductCommandValidator>();
             services.AddTransient<IValidator<AddCategoryCommand>, AddCategoryCommandValidator>();

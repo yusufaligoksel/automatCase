@@ -26,13 +26,13 @@ namespace Automat.Infrastructure.Repository
         void InsertRange(List<TEntity> entities);
 
         void Update(TEntity entity);
-        Task UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
         void UpdateRange(List<TEntity> entities);
 
         void Delete(object id);
-        void DeleteAsync(object id);
+        Task<int> DeleteAsync(object id);
         void Delete(TEntity entity);
-        void DeleteAsync(TEntity entity);
+        Task<int> DeleteAsync(TEntity entity);
         void DeleteRange(List<TEntity> entities);
         #endregion
 

@@ -21,7 +21,7 @@ namespace Automat.OrderApi.Controllers
         public async Task<IActionResult> Get([FromHeader] GetOrderQuery request)
         {
             var result = await _mediator.Send(request);
-            return CreateActionResult(request, result.StatusCode);
+            return CreateActionResult(result, result.StatusCode);
         }
 
         [HttpPost]

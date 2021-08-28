@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Automat.Application.Configuration;
+using Automat.Domain.Mapping;
 using Automat.Infrastructure.Context;
 using Automat.Infrastructure.Repository;
 using Automat.Persistence.Services.Abstract;
@@ -41,7 +42,7 @@ namespace Automat.ProductApi
             });
 
             services.AddDbContext<AutomatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AutomatConnection")));
-
+            services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
             services.AddMediatR(typeof(Startup));
             services.AddAllConfigurationServices();
 

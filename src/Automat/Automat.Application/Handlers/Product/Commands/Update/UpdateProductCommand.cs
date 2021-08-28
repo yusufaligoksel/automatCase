@@ -61,7 +61,7 @@ namespace Automat.Application.Handlers.Product.Commands.Update
                         existingProduct.Price = request.Price;
                         existingProduct.ModifiedDate = DateTime.Now;
 
-                        _productService.UpdateAsync(existingProduct);
+                        await _productService.UpdateAsync(existingProduct);
                     }
                     else
                     {

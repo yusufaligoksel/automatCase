@@ -8,8 +8,6 @@ using Automat.Application.Handlers.Product.Commands.Update;
 
 namespace Automat.ProductApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class ProductController : BaseController
     {
         private readonly IMediator _mediator;

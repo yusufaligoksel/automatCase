@@ -157,6 +157,7 @@ namespace Automat.Application.Handlers.Order.Commands
                         product.Name,
                         product.CategoryId,
                         product.Category.Name,
+                        cart.UnitPrice,
                         cart.Quantity,
                         cart.CategoryFeatureOptionId,
                         categoryFeatureOption.Id > 0 ? categoryFeatureOption.Name : "-",
@@ -166,7 +167,7 @@ namespace Automat.Application.Handlers.Order.Commands
                 #endregion
 
                 //clean shopping cart
-                _shoppingCartService.DeleteAsync(cart.Id);
+                await _shoppingCartService.DeleteAsync(cart.Id);
 
                 return GenericResponse<OrderDto>.SuccessResponse(result, 200);
 

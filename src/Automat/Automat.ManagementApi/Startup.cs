@@ -12,10 +12,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Automat.Application.Configuration;
+using Automat.Domain.Mapping;
+using Automat.Infrastructure.Context;
 using Automat.Infrastructure.Repository;
 using Automat.Persistence.Services.Abstract;
 using Automat.Persistence.Services.Concrete;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Automat.ManagementApi
 {
@@ -38,6 +41,9 @@ namespace Automat.ManagementApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Automat.ManagementApi", Version = "v1" });
             });
 
+            services.AddDbContext<AutomatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AutomatConnection")));
+
+            services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
             services.AddMediatR(typeof(Startup));
             services.AddAllConfigurationServices();
 

@@ -22,7 +22,7 @@ namespace Automat.Domain.Dtos
 
     public class OrderProductDto
     {
-        public OrderProductDto(int productId, string productName, int categoryId, string categoryName, int quantity, int? featureOptionId, string featureName, int? featureQuantity)
+        public OrderProductDto(int productId, string productName, int categoryId, string categoryName, decimal unitPrice, int quantity, int? featureOptionId, string featureName, int? featureQuantity)
         {
             ProductId = productId;
             ProductName = productName;
@@ -32,11 +32,13 @@ namespace Automat.Domain.Dtos
             FeatureOptionId = featureOptionId;
             FeatureName = featureName;
             FeatureQuantity = featureQuantity;
+            UnitPrice = unitPrice;
         }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public int? FeatureOptionId { get; set; }
         public string FeatureName { get; set; }

@@ -59,9 +59,10 @@ namespace Automat.Persistence.Services.Concrete
             _repository.Update(entity);
         }
 
-        public async void UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            _repository.UpdateAsync(entity);
+            var result = await _repository.UpdateAsync(entity);
+            return result;
         }
 
         public void Update(List<TEntity> entities)
@@ -74,9 +75,10 @@ namespace Automat.Persistence.Services.Concrete
             _repository.Delete(entity);
         }
 
-        public async void DeleteAsync(TEntity entity)
+        public async Task<int> DeleteAsync(TEntity entity)
         {
-            _repository.DeleteAsync(entity);
+            var result=await _repository.DeleteAsync(entity);
+            return result;
         }
 
         public void Delete(List<TEntity> entities)
@@ -89,9 +91,10 @@ namespace Automat.Persistence.Services.Concrete
             _repository.Delete(id);
         }
 
-        public async void DeleteAsync(object id)
+        public async Task<int> DeleteAsync(object id)
         {
-            _repository.DeleteAsync(id);
+            var result= await _repository.DeleteAsync(id);
+            return result;
         }
     }
 }

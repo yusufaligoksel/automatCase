@@ -48,6 +48,7 @@ namespace Automat.Application.Handlers.Order.Queries
                             orderDetail.Product.Name,
                             orderDetail.Product.CategoryId,
                             orderDetail.Product.Category.Name,
+                            orderDetail.UnitPrice,
                             orderDetail.Quantity,
                             orderProductFeatureOption != null ? orderProductFeatureOption.CategoryFeatureOptionId : null,
                             orderProductFeatureOption != null ? orderProductFeatureOption.CategoryFeatureOption.Name : "-",

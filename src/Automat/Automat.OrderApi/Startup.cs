@@ -17,6 +17,7 @@ using Automat.Application.Handlers.Process.Queries;
 using Automat.Application.Handlers.ShoppingCart.Commands;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCommand;
+using Automat.Domain.Mapping;
 using Automat.Infrastructure.Context;
 using Automat.Infrastructure.Repository;
 using Automat.Persistence.Services.Abstract;
@@ -47,7 +48,7 @@ namespace Automat.OrderApi
             });
 
             services.AddDbContext<AutomatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AutomatConnection")));
-
+            services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
             services.AddMediatR(typeof(Startup));
             services.AddAllConfigurationServices();
 

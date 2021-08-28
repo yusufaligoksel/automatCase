@@ -25,7 +25,7 @@ namespace Automat.Persistence.Services.Concrete
 
         public async Task<ShoppingCart> GetLastProcess()
         {
-            return await _repository.Table.LastOrDefaultAsync();
+            return await _repository.Table.OrderBy(x=>x.Id).LastOrDefaultAsync();
         }
     }
 }

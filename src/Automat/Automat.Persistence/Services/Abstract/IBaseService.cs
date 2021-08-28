@@ -20,13 +20,13 @@ namespace Automat.Persistence.Services.Abstract
         Task<TEntity> InsertAsync(TEntity entity);
         IEnumerable<TEntity> Insert(List<TEntity> entities);
         void Update(TEntity entity);
-        void UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
         void Update(List<TEntity> entities);
         void Delete(TEntity entity);
-        void DeleteAsync(TEntity entity);
+        Task<int> DeleteAsync(TEntity entity);
         void Delete(List<TEntity> entities);
         void Delete(object id);
-        void DeleteAsync(object id);
+        Task<int> DeleteAsync(object id);
         #endregion
     }
 }

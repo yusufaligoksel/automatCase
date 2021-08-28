@@ -85,7 +85,7 @@ namespace Automat.Infrastructure.Repository
 
             await _entities.AddAsync(entity);
             _context.Entry(entity).State = EntityState.Added;
-            var saveResult = await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return entity;
         }
 
@@ -112,9 +112,12 @@ namespace Automat.Infrastructure.Repository
             _context.SaveChanges();
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
+            _entities.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+            return entity;
         }
 
         public void UpdateRange(List<TEntity> entities)
@@ -140,11 +143,12 @@ namespace Automat.Infrastructure.Repository
             _context.SaveChanges();
         }
 
-        public async void DeleteAsync(object id)
+        public async Task<int> DeleteAsync(object id)
         {
             var entity = await FindAsync(id);
             _context.Remove(entity);
-            await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync();
+            return result;
         }
 
         public void Delete(TEntity entity)
@@ -153,10 +157,11 @@ namespace Automat.Infrastructure.Repository
             _context.SaveChanges();
         }
 
-        public async void DeleteAsync(TEntity entity)
+        public async Task<int> DeleteAsync(TEntity entity)
         {
             _context.Remove(entity);
-            await _context.SaveChangesAsync();
+             var result= await _context.SaveChangesAsync();
+             return result;
         }
 
         public void DeleteRange(List<TEntity> entities)

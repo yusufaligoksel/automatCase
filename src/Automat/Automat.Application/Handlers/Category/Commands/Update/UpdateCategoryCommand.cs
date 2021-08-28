@@ -59,7 +59,7 @@ namespace Automat.Application.Handlers.Category.Commands.Update
                         existingCategory.ParentId = request.ParentId;
                         existingCategory.ModifiedDate=DateTime.Now;
 
-                        _categoryService.UpdateAsync(existingCategory);
+                        await _categoryService.UpdateAsync(existingCategory);
                     }
                     else
                     {

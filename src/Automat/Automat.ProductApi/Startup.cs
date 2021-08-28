@@ -11,7 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Automat.Application.Configuration;
 using Automat.Infrastructure.Context;
+using Automat.Infrastructure.Repository;
+using Automat.Persistence.Services.Abstract;
+using Automat.Persistence.Services.Concrete;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 
@@ -37,6 +41,27 @@ namespace Automat.ProductApi
             });
 
             services.AddDbContext<AutomatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AutomatConnection")));
+
+            services.AddMediatR(typeof(Startup));
+            services.AddAllConfigurationServices();
+
+            #region ServiceInjection
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IShoppingCartService, ShoppingCartService>();
+            services.AddScoped<ICategoryFeatureService, CategoryFeatureService>();
+            services.AddScoped<ICategoryFeatureOptionService, CategoryFeatureOptionService>();
+            services.AddScoped<IProcessService, ProcessService>();
+            services.AddScoped<IPaymentTypeOptionService, PaymentTypeOptionService>();
+            services.AddScoped<IPaymentTypeService, PaymentTypeService>();
+            services.AddScoped<IAutomatSlotService, AutomatSlotService>();
+            services.AddScoped<IAutomatSlotProductService, AutomatSlotProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderDetailService, OrderDetailService>();
+            services.AddScoped<IOrderProductFeatureOptionService, OrderProductFeatureOptionService>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

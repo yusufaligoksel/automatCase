@@ -13,7 +13,7 @@ namespace Automat.Unittest.HelperTests
     public class CalculateTest
     {
         [Theory]
-        [InlineData(14.45, 2, 28.3)]
+        [InlineData(14.45, 2, 28.9)]
         public void Calculate_PaymentTotal_Should_Be_Return_PaymentTotal(decimal unitPrice, int quantity, decimal expectedValue)
         {
             //Act

@@ -147,6 +147,7 @@ namespace Automat.Application.Handlers.Order.Commands
                 #region Result
                 var result = new OrderDto
                 {
+                    OrderId=order.Id,
                     OrderCode = order.OrderCode,
                     OrderDate = order.OrderDate,
                     Message = "Siparişiniz oluşturuldu!",
@@ -157,12 +158,15 @@ namespace Automat.Application.Handlers.Order.Commands
                         product.CategoryId,
                         product.Category.Name,
                         cart.Quantity,
-                        cart.PaymentTypeOptionId,
+                        cart.CategoryFeatureOptionId,
                         categoryFeatureOption.Id > 0 ? categoryFeatureOption.Name : "-",
                         cart.FeatureOptionQuantity),
                     PaymentMethod = new OrderPaymentMethodDto(paymentTypeOption.PaymentTypeId, paymentTypeOption.PaymentType.Name, paymentTypeOption.Id, paymentTypeOption.Name)
                 };
                 #endregion
+
+                //clean shopping cart
+                _shoppingCartService.DeleteAsync(cart.Id);
 
                 return GenericResponse<OrderDto>.SuccessResponse(result, 200);
 

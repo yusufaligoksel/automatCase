@@ -7,7 +7,8 @@ using Automat.Domain.Entities;
 
 namespace Automat.Persistence.Services.Abstract
 {
-    public interface IOrderService:IBaseService<Order>
+    public interface IOrderService : IBaseService<Order>
     {
+        Task<Order> GetById(int id);
     }
 }

@@ -9,6 +9,7 @@ namespace Automat.Domain.Dtos
 {
     public class OrderDto
     {
+        public int OrderId { get; set; }
         public Guid OrderCode { get; set; }
         public DateTime OrderDate { get; set; }
         public string Message { get; set; }

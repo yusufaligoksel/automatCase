@@ -11,11 +11,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Automat.Application.Configuration;
 using Automat.Application.Handlers.Order.Commands;
 using Automat.Application.Handlers.Process.Queries;
 using Automat.Application.Handlers.ShoppingCart.Commands;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCommand;
+using Automat.Domain.Mapping;
 using Automat.Infrastructure.Context;
 using Automat.Infrastructure.Repository;
 using Automat.Persistence.Services.Abstract;
@@ -47,21 +49,10 @@ namespace Automat.ShoppingCartApi
 
             services.AddDbContext<AutomatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AutomatConnection")));
 
-            #region MediatR
-            services.AddMediatR(typeof(Startup));
-            services.AddMediatR(typeof(AddToCartCommand));
-            services.AddMediatR(typeof(SelectProductQuantityCommand));
-            services.AddMediatR(typeof(SelectPaymentMethodCommand));
-            services.AddMediatR(typeof(OrderPayCommand));
-            services.AddMediatR(typeof(GetLastProcessQueries));
-            #endregion
+            services.AddAutoMapper(cfg => cfg.AddProfile(new MappingProfile()));
 
-            #region FluentValidation
-            services.AddTransient<IValidator<AddToCartCommand>, AddToCartCommandValidator>();
-            services.AddTransient<IValidator<SelectProductQuantityCommand>, SelectProductQuantityCommandValidator>();
-            services.AddTransient<IValidator<SelectPaymentMethodCommand>, SelectPaymentMethodCommandValidator>();
-            services.AddTransient<IValidator<OrderPayCommand>, OrderPayCommandValidator>();
-            #endregion
+            services.AddMediatR(typeof(Startup));
+            services.AddAllConfigurationServices();
 
             #region ServiceInjection
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

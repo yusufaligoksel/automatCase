@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Automat.Application.Handlers.Order.Commands;
+using Automat.Application.Handlers.Order.Queries;
 using MediatR;
 using SharedLibrary.Controller;
 
@@ -16,6 +17,14 @@ namespace Automat.OrderApi.Controllers
         public OrderController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        [Route("orders/{id}")]
+        public async Task<IActionResult> Get([FromHeader] GetOrderQuery request)
+        {
+            var result = await _mediator.Send(request);
+            return CreateActionResult(request, result.StatusCode);
         }
 
         [HttpPost]

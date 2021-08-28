@@ -12,20 +12,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Automat.Application.Configuration;
-using Automat.Application.Handlers.Order.Commands;
-using Automat.Application.Handlers.Process.Queries;
-using Automat.Application.Handlers.ShoppingCart.Commands;
-using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
-using Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCommand;
-using Automat.Infrastructure.Context;
 using Automat.Infrastructure.Repository;
 using Automat.Persistence.Services.Abstract;
 using Automat.Persistence.Services.Concrete;
-using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
-namespace Automat.OrderApi
+namespace Automat.ManagementApi
 {
     public class Startup
     {
@@ -43,10 +35,8 @@ namespace Automat.OrderApi
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Automat.OrderApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Automat.ManagementApi", Version = "v1" });
             });
-
-            services.AddDbContext<AutomatContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AutomatConnection")));
 
             services.AddMediatR(typeof(Startup));
             services.AddAllConfigurationServices();
@@ -77,7 +67,7 @@ namespace Automat.OrderApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Automat.OrderApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Automat.ManagementApi v1"));
             }
 
             app.UseHttpsRedirection();

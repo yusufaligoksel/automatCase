@@ -12,7 +12,7 @@ namespace Automat.Application.Handlers.Product.Commands.Insert
     {
         public AddProductCommandValidator()
         {
-            RuleFor(x => x.Name).NotNull().NotEmpty().NotNull().WithMessage("Lütfen bir ürün adı giriniz.");
+            RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("Lütfen bir ürün adı giriniz.");
             RuleFor(x => x.CategoryId).NotNull().NotEmpty().When(x=>x.CategoryId==0).WithMessage("Lütfen bir kategori seçiniz.");
             RuleFor(x => x.Price).NotNull().NotEmpty().When(x => x.Price == 0).WithMessage("Lütfen doğru bir ürün fiyatı giriniz.");
         }

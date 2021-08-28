@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Automat.Application.Handlers.Category.Commands.Insert;
+using Automat.Application.Handlers.Category.Commands.Update;
 using Automat.Application.Handlers.Category.Queries;
 using Automat.Application.Handlers.Order.Commands;
 using Automat.Application.Handlers.Order.Queries;
@@ -11,6 +12,7 @@ using Automat.Application.Handlers.Payment.PaymentType.Commands;
 using Automat.Application.Handlers.Payment.PaymentTypeOption.Commands;
 using Automat.Application.Handlers.Process.Queries;
 using Automat.Application.Handlers.Product.Commands.Insert;
+using Automat.Application.Handlers.Product.Commands.Update;
 using Automat.Application.Handlers.Product.Queries;
 using Automat.Application.Handlers.ShoppingCart.Commands;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
@@ -50,11 +52,13 @@ namespace Automat.Application.Configuration
             services.AddMediatR(typeof(GetProductQuery));
             services.AddMediatR(typeof(GetProductsQuery));
             services.AddMediatR(typeof(AddProductCommand));
+            services.AddMediatR(typeof(UpdateProductCommand));
 
             //category
             services.AddMediatR(typeof(GetCategoryQuery));
             services.AddMediatR(typeof(GetCategoriesQuery));
             services.AddMediatR(typeof(AddCategoryCommand));
+            services.AddMediatR(typeof(UpdateCategoryCommand));
             #endregion
 
             #region FluentValidation
@@ -66,6 +70,8 @@ namespace Automat.Application.Configuration
             services.AddTransient<IValidator<OrderPayCommand>, OrderPayCommandValidator>();
             services.AddTransient<IValidator<AddProductCommand>, AddProductCommandValidator>();
             services.AddTransient<IValidator<AddCategoryCommand>, AddCategoryCommandValidator>();
+            services.AddTransient<IValidator<UpdateProductCommand>, UpdateProductCommandValidator>();
+            services.AddTransient<IValidator<UpdateCategoryCommand>, UpdateCategoryCommandValidator>();
             #endregion
 
             return services;

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Controller;
 using System.Threading.Tasks;
 using Automat.Application.Handlers.Product.Commands.Insert;
+using Automat.Application.Handlers.Product.Commands.Update;
 
 namespace Automat.ProductApi.Controllers
 {
@@ -38,6 +39,14 @@ namespace Automat.ProductApi.Controllers
         [HttpPost]
         [Route("[controller]")]
         public async Task<IActionResult> Post([FromBody] AddProductCommand request)
+        {
+            var result = await _mediator.Send(request);
+            return CreateActionResult(result, result.StatusCode);
+        }
+
+        [HttpPut]
+        [Route("[controller]")]
+        public async Task<IActionResult> Post([FromBody] UpdateProductCommand request)
         {
             var result = await _mediator.Send(request);
             return CreateActionResult(result, result.StatusCode);

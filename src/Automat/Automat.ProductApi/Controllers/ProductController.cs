@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Controller;
 using System.Threading.Tasks;
+using Automat.Application.Handlers.Product.Commands.Insert;
 
 namespace Automat.ProductApi.Controllers
 {
@@ -19,15 +20,24 @@ namespace Automat.ProductApi.Controllers
 
         [HttpGet]
         [Route("[controller]")]
-        public async Task<IActionResult> GetList([FromHeader] GetProductsQuery request)
+        public async Task<IActionResult> GetList()
         {
-            var result = await _mediator.Send(request);
+            var query = new GetProductsQuery();
+            var result = await _mediator.Send(query);
             return CreateActionResult(result, result.StatusCode);
         }
 
         [HttpGet]
         [Route("[controller]/{id}")]
         public async Task<IActionResult> Get([FromHeader] GetProductQuery request)
+        {
+            var result = await _mediator.Send(request);
+            return CreateActionResult(result, result.StatusCode);
+        }
+
+        [HttpPost]
+        [Route("[controller]")]
+        public async Task<IActionResult> Post([FromBody] AddProductCommand request)
         {
             var result = await _mediator.Send(request);
             return CreateActionResult(result, result.StatusCode);

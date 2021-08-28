@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Controller;
 using System.Threading.Tasks;
+using Automat.Application.Handlers.Category.Commands.Insert;
 
 namespace Automat.ProductApi.Controllers
 {
@@ -17,15 +18,24 @@ namespace Automat.ProductApi.Controllers
 
         [HttpGet]
         [Route("[controller]")]
-        public async Task<IActionResult> GetList([FromHeader] GetCategoriesQuery request)
+        public async Task<IActionResult> GetList()
         {
-            var result = await _mediator.Send(request);
+            var query = new GetCategoriesQuery();
+            var result = await _mediator.Send(query);
             return CreateActionResult(result, result.StatusCode);
         }
 
         [HttpGet]
         [Route("[controller]/{id}")]
         public async Task<IActionResult> Get([FromHeader] GetCategoryQuery request)
+        {
+            var result = await _mediator.Send(request);
+            return CreateActionResult(result, result.StatusCode);
+        }
+
+        [HttpPost]
+        [Route("[controller]")]
+        public async Task<IActionResult> Post([FromBody] AddCategoryCommand request)
         {
             var result = await _mediator.Send(request);
             return CreateActionResult(result, result.StatusCode);

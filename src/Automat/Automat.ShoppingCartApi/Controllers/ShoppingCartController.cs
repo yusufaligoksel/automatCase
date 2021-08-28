@@ -1,21 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Automat.Application.Handlers.ShoppingCart.Commands;
+﻿using Automat.Application.Handlers.ShoppingCart.Commands;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCommand;
-using Automat.Domain.Dtos;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Controller;
-using SharedLibrary.Response;
+using System.Threading.Tasks;
 
 namespace Automat.ShoppingCartApi.Controllers
 {
     public class ShoppingCartController : BaseController
     {
         private readonly IMediator _mediator;
+
         public ShoppingCartController(IMediator mediator)
         {
             _mediator = mediator;

@@ -1,19 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Automat.Application.Handlers.Order.Commands;
+﻿using Automat.Application.Handlers.Order.Commands;
 using Automat.Application.Handlers.Order.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Controller;
+using System.Threading.Tasks;
 
 namespace Automat.OrderApi.Controllers
 {
     public class OrderController : BaseController
     {
         private readonly IMediator _mediator;
+
         public OrderController(IMediator mediator)
         {
             _mediator = mediator;

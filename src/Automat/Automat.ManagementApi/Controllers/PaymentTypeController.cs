@@ -1,18 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Automat.Application.Handlers.Payment.PaymentType.Commands;
+﻿using Automat.Application.Handlers.Payment.PaymentType.Commands;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Controller;
+using System.Threading.Tasks;
 
 namespace Automat.ManagementApi.Controllers
 {
     public class PaymentTypeController : BaseController
     {
         private readonly IMediator _mediator;
+
         public PaymentTypeController(IMediator mediator)
         {
             _mediator = mediator;

@@ -1,18 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Automat.Application.Handlers.Process.Queries;
+﻿using Automat.Application.Handlers.Process.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Controller;
+using System.Threading.Tasks;
 
 namespace Automat.ShoppingCartApi.Controllers
 {
     public class ProcessController : BaseController
     {
         private readonly IMediator _mediator;
+
         public ProcessController(IMediator mediator)
         {
             _mediator = mediator;

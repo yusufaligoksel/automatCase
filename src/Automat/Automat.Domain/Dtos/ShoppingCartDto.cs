@@ -8,6 +8,7 @@ namespace Automat.Domain.Dtos
 {
     public class ShoppingCartDto
     {
+        public int Id { get; set; }
         public Guid ProcessId { get; set; }
         public int AutomatSlotId { get; set; }
         public int ProductId { get; set; }
@@ -16,5 +17,7 @@ namespace Automat.Domain.Dtos
         public int? CategoryFeatureOptionId { get; set; }
         public int? FeatureOptionQuantity { get; set; }
         public int? PaymentTypeOptionId { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
     }
 }

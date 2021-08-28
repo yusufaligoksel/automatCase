@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Automat.Application.Handlers.Category.Queries;
 using Automat.Application.Handlers.Order.Commands;
+using Automat.Application.Handlers.Order.Queries;
 using Automat.Application.Handlers.Payment.PaymentType.Commands;
 using Automat.Application.Handlers.Payment.PaymentTypeOption.Commands;
 using Automat.Application.Handlers.Process.Queries;
+using Automat.Application.Handlers.Product.Queries;
 using Automat.Application.Handlers.ShoppingCart.Commands;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCommand;
@@ -31,13 +34,23 @@ namespace Automat.Application.Configuration
             services.AddMediatR(typeof(AddToCartCommand));
             services.AddMediatR(typeof(SelectProductQuantityCommand));
             services.AddMediatR(typeof(SelectPaymentMethodCommand));
-            services.AddMediatR(typeof(OrderPayCommand));
             services.AddMediatR(typeof(GetLastProcessQuery));
+
+            //order
+            services.AddMediatR(typeof(OrderPayCommand));
+            services.AddMediatR(typeof(GetOrderQuery));
 
             //payment
             services.AddMediatR(typeof(AddPaymentTypeCommand));
             services.AddMediatR(typeof(AddPaymentTypeOptionCommand));
 
+            //product
+            services.AddMediatR(typeof(GetProductQuery));
+            services.AddMediatR(typeof(GetProductsQuery));
+
+            //category
+            services.AddMediatR(typeof(GetCategoryQuery));
+            services.AddMediatR(typeof(GetCategoriesQuery));
             #endregion
 
             #region FluentValidation

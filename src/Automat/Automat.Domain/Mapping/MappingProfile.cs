@@ -14,6 +14,7 @@ namespace Automat.Domain.Mapping
         public MappingProfile()
         {
             CreateMap<ShoppingCart, ShoppingCartDto>();
+            CreateMap<Category, CategoryDto>();
         }
     }
 }

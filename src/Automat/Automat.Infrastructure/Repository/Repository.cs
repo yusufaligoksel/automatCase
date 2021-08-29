@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Automat.Common.Extensions;
 using Automat.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,11 +30,6 @@ namespace Automat.Infrastructure.Repository
 
         public IQueryable<TEntity> TableNoTracking => Entities.AsNoTracking();
 
-        public TEntity Find(params object[] keyValues)
-        {
-            return _entities.Find(keyValues);
-        }
-
         public async Task<IEnumerable<TEntity>> GetListAsync()
         {
             return await _entities.ToListAsync();
@@ -55,27 +49,9 @@ namespace Automat.Infrastructure.Repository
         {
             return await _entities.FindAsync(keyValues);
         }
-
-        public IEnumerable<TEntity> GetList()
-        {
-            return Entities.ToList();
-        }
         #endregion
 
         #region DataActionMedhods
-
-        public void Insert(TEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            _entities.Add(entity);
-            _context.Entry(entity).State = EntityState.Added;
-            _context.SaveChanges();
-        }
-
         public async Task<TEntity> InsertAsync(TEntity entity)
         {
             if (entity == null)
@@ -89,58 +65,12 @@ namespace Automat.Infrastructure.Repository
             return entity;
         }
 
-        public void InsertRange(List<TEntity> entities)
-        {
-            if (entities == null)
-            {
-                throw new ArgumentNullException(nameof(entities));
-            }
-
-            foreach (var item in entities)
-            {
-                Entities.Add(item);
-                _context.Entry(item).State = EntityState.Added;
-            }
-
-            _context.SaveChanges();
-        }
-
-        public void Update(TEntity entity)
-        {
-            _entities.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
-            _context.SaveChanges();
-        }
-
         public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             _entities.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return entity;
-        }
-
-        public void UpdateRange(List<TEntity> entities)
-        {
-            if (entities == null)
-            {
-                throw new ArgumentNullException(nameof(entities));
-            }
-
-            foreach (var item in entities)
-            {
-                _entities.Attach(item);
-                _context.Entry(item).State = EntityState.Modified;
-            }
-
-            _context.SaveChanges();
-        }
-
-        public void Delete(object id)
-        {
-            var entity = Find(id);
-            _context.Remove(entity);
-            _context.SaveChanges();
         }
 
         public async Task<int> DeleteAsync(object id)
@@ -151,47 +81,13 @@ namespace Automat.Infrastructure.Repository
             return result;
         }
 
-        public void Delete(TEntity entity)
-        {
-            _context.Remove(entity);
-            _context.SaveChanges();
-        }
-
         public async Task<int> DeleteAsync(TEntity entity)
         {
             _context.Remove(entity);
              var result= await _context.SaveChangesAsync();
              return result;
         }
-
-        public void DeleteRange(List<TEntity> entities)
-        {
-            if (entities == null)
-            {
-                throw new ArgumentNullException(nameof(entities));
-            }
-
-            foreach (var item in entities)
-            {
-                _context.Remove(item);
-                _context.SaveChanges();
-            }
-        }
-
         #endregion
 
-        #region SqlQuery
-        public IEnumerable<TEntity> GetSql(string sql, params object[] parameters)
-        {
-            return Entities.FromSqlRaw(sql, parameters);
-        }
-        #endregion
-
-        #region Include
-        public IQueryable<TEntity> IncludeMany(params Expression<Func<TEntity, object>>[] includes)
-        {
-            return _entities.IncludeMultiple(includes);
-        }
-        #endregion
     }
 }

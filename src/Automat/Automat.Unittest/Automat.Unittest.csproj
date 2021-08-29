@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Automat.Application\Automat.Application.csproj" />
     <ProjectReference Include="..\Automat.Common\Automat.Common.csproj" />
   </ItemGroup>
 

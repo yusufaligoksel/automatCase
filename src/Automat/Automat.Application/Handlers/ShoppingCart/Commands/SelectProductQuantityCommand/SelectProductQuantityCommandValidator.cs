@@ -12,7 +12,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
         public SelectProductQuantityCommandValidator()
         {
             RuleFor(x => x.ProcessId).NotNull().NotEmpty().WithMessage("Hatalı işlem numarası! Adet seçimi yapılamaz.");
-            RuleFor(x => x.Quantity).NotNull().When(x => x.ProductId == 0).WithMessage("Lütfen adet seçimi yapınız.");
+            RuleFor(x => x.Quantity).NotEqual(0).When(x => x.Quantity < 1).WithMessage("Lütfen adet seçimi yapınız.");
         }
     }
 }

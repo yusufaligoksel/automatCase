@@ -12,6 +12,7 @@ namespace Automat.Application.Handlers.Order.Commands
         public OrderPayCommandValidator()
         {
             RuleFor(x => x.ProcessId).NotNull().NotEmpty().WithMessage("Hatalı işlem numarası! Sipariş oluşturulamaz.");
+            RuleFor(x => x.PaidMoney).NotEqual(0).When(x => x.PaidMoney < 1).WithMessage("Ödeme yapılan ücret bilgisi hatalı!");
         }
     }
 }

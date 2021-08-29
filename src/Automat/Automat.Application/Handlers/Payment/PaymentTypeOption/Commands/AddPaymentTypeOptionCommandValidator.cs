@@ -11,7 +11,7 @@ namespace Automat.Application.Handlers.Payment.PaymentTypeOption.Commands
     {
         public AddPaymentTypeOptionCommandValidator()
         {
-            RuleFor(x => x.PaymentTypeId).NotNull().NotEmpty().WithMessage("Lütfen ödeme seçiniz.");
+            RuleFor(x => x.PaymentTypeId).NotEqual(0).When(x => x.PaymentTypeId < 1).WithMessage("Lütfen ödeme seçiniz.");
             RuleFor(x => x.Name).NotNull().NotEmpty().WithMessage("Lütfen ödeme seçeneğinin adını giriniz.");
         }
     }

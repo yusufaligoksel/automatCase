@@ -11,8 +11,8 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
     {
         public AddToCartCommandValidator()
         {
-            RuleFor(x => x.ProductId).NotNull().When(x => x.ProductId == 0).WithMessage("Lütfen bir ürün seçiniz.");
-            RuleFor(x => x.SlotId).NotNull().When(x => x.SlotId == 0).WithMessage("Slot seçiminde bir hata oluştu.");
+            RuleFor(x => x.ProductId).NotEqual(0).When(x => x.ProductId < 1).WithMessage("Lütfen bir ürün seçiniz.");
+            RuleFor(x => x.SlotId).NotEqual(0).When(x => x.SlotId < 1).WithMessage("Slot seçiminde bir hata oluştu.");
         }
     }
 }

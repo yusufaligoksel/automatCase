@@ -42,9 +42,6 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
             {
                 try
                 {
-                    string feautureOptionName = "-";
-                    var product = await _productService.FindAsync(request.ProductId);
-
                     #region Validation
                     var addCartValidResult = _addTocartValidator.Validate(request);
                     if (!addCartValidResult.IsValid)
@@ -56,7 +53,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                         ErrorResult error = new(errors);
                         return GenericResponse<CartResultDto>.ErrorResponse(error, statusCode: 400);
                     }
-
+                    #endregion
                     #region AutomatSlotProduct
 
                     var checkautomatProduct =
@@ -70,6 +67,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                     }
                     #endregion
 
+                    string feautureOptionName = "-";
                     #region FeatureOption
                     if (request.FeatureOptionId.HasValue)
                     {
@@ -93,6 +91,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                     }
                     #endregion
 
+                    var product = await _productService.FindAsync(request.ProductId);
                     #region Product
                     if (product == null)
                     {
@@ -101,7 +100,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                     }
                     #endregion
 
-                    #endregion
+
 
                     Domain.Entities.ShoppingCart cart = new Domain.Entities.ShoppingCart
                     {

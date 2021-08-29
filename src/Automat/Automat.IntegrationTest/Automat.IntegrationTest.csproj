@@ -29,10 +29,4 @@
     <ProjectReference Include="..\Automat.ShoppingCartApi\Automat.ShoppingCartApi.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Model\Management\" />
-    <Folder Include="Model\Order\" />
-    <Folder Include="Model\ShoppingCart\" />
-  </ItemGroup>
-
 </Project>

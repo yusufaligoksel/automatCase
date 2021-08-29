@@ -15,9 +15,9 @@ using Xunit;
 
 namespace Automat.IntegrationTest.ApiIntegrationTests
 {
-    public class CategoriTest : Fixtures.ProductApi.ProductApiIntegrationTestFixture
+    public class CategoryTest : Fixtures.ProductApi.ProductApiIntegrationTestFixture
     {
-        public CategoriTest(ProductApiFactory fixture) : base(fixture)
+        public CategoryTest(ProductApiFactory fixture) : base(fixture)
         {
 
         }
@@ -82,7 +82,7 @@ namespace Automat.IntegrationTest.ApiIntegrationTests
         }
 
         [Theory]
-        [InlineData(9)]
+        [InlineData(12)]
         public async void UpdateCategory_Should_Return_UpdatedCategory(int categoryId)
         {
             //Arange

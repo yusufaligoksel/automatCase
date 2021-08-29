@@ -22,4 +22,17 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Automat.ManagementApi\Automat.ManagementApi.csproj" />
+    <ProjectReference Include="..\Automat.OrderApi\Automat.OrderApi.csproj" />
+    <ProjectReference Include="..\Automat.ProductApi\Automat.ProductApi.csproj" />
+    <ProjectReference Include="..\Automat.ShoppingCartApi\Automat.ShoppingCartApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Model\Management\" />
+    <Folder Include="Model\Order\" />
+    <Folder Include="Model\ShoppingCart\" />
+  </ItemGroup>
+
 </Project>

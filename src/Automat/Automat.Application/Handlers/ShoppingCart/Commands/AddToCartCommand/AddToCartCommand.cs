@@ -54,6 +54,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                         return GenericResponse<CartResultDto>.ErrorResponse(error, statusCode: 400);
                     }
                     #endregion
+
                     #region AutomatSlotProduct
 
                     var checkautomatProduct =
@@ -67,10 +68,28 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                     }
                     #endregion
 
+                    var product = await _productService.FindAsync(request.ProductId);
+                    #region Product
+                    if (product == null)
+                    {
+                        ErrorResult error = new("Hatalı bir ürün seçimi yaptınız. Lütfen doğru bir ürün seçimi yapınız.");
+                        return GenericResponse<CartResultDto>.ErrorResponse(error, statusCode: 400);
+                    }
+                    #endregion
+
                     string feautureOptionName = "-";
                     #region FeatureOption
                     if (request.FeatureOptionId.HasValue)
                     {
+                        bool checkFeatureOption =
+                            await _categoryFeatureOptionService.CheckCategoryFeatureOption(
+                                request.FeatureOptionId.Value, product.CategoryId);
+                        if (!checkFeatureOption)
+                        {
+                            ErrorResult error = new("Seçmiş olduğunuz ürün özellik seçeneği bu ürün için seçilemez.");
+                            return GenericResponse<CartResultDto>.ErrorResponse(error, statusCode: 400);
+                        }
+
                         var feautureOption =
                             await _categoryFeatureOptionService.FindAsync(request.FeatureOptionId.Value);
 
@@ -90,18 +109,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands
                         }
                     }
                     #endregion
-
-                    var product = await _productService.FindAsync(request.ProductId);
-                    #region Product
-                    if (product == null)
-                    {
-                        ErrorResult error = new("Hatalı bir ürün seçimi yaptınız. Lütfen doğru bir ürün seçimi yapınız.");
-                        return GenericResponse<CartResultDto>.ErrorResponse(error, statusCode: 400);
-                    }
-                    #endregion
-
-
-
+                    
                     Domain.Entities.ShoppingCart cart = new Domain.Entities.ShoppingCart
                     {
                         ProcessId = _processService.GenerateProcessId(),

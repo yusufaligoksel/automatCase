@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Automat.Domain.Dtos;
+﻿using Automat.Domain.Dtos;
 using Automat.IntegrationTest.Fixtures.OrderApi;
 using Automat.IntegrationTest.Model.Order;
 using FluentAssertions;
 using Newtonsoft.Json;
 using SharedLibrary.Response;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using Xunit;
 
 namespace Automat.IntegrationTest.ApiIntegrationTests
@@ -19,7 +15,6 @@ namespace Automat.IntegrationTest.ApiIntegrationTests
     {
         public OrderApiTest(OrderApiFactory fixture) : base(fixture)
         {
-
         }
 
         [Theory]
@@ -64,6 +59,5 @@ namespace Automat.IntegrationTest.ApiIntegrationTests
             response.StatusCode.Should().Be(HttpStatusCode.OK);
             product.Result.RefundAmount.Should().Be(expectedRefundAmount);
         }
-
     }
 }

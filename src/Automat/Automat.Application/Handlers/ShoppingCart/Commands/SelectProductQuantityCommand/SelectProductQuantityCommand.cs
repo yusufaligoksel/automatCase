@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Automat.Domain.Dtos;
+﻿using Automat.Domain.Dtos;
 using Automat.Persistence.Services.Abstract;
 using FluentValidation;
 using MediatR;
 using SharedLibrary.Response;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCommand
 {
@@ -25,6 +23,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
         private readonly IShoppingCartService _shoppingCartService;
         private readonly IProductService _productService;
         private readonly IProcessService _processService;
+
         public SelectProductQuantityCommandHandler(IValidator<SelectProductQuantityCommand> selectQuantityValidator,
             IShoppingCartService shoppingCartService,
             IProductService productService,
@@ -35,6 +34,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
             _productService = productService;
             _processService = processService;
         }
+
         public async Task<GenericResponse<SelectQuantityResultDto>> Handle(SelectProductQuantityCommand request, CancellationToken cancellationToken)
         {
             try
@@ -44,6 +44,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
                 #region Validation
 
                 #region GeneralValidation
+
                 var selectQuantityValidResult = _selectQuantityValidator.Validate(request);
                 if (!selectQuantityValidResult.IsValid)
                 {
@@ -54,17 +55,20 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
                     ErrorResult error = new(errors);
                     return GenericResponse<SelectQuantityResultDto>.ErrorResponse(error, statusCode: 400);
                 }
-                #endregion
+
+                #endregion GeneralValidation
 
                 #region Product
+
                 if (product == null)
                 {
                     ErrorResult error = new("Hatalı bir ürün seçimi yaptınız. Lütfen doğru bir ürün seçimi yapınız.");
                     return GenericResponse<SelectQuantityResultDto>.ErrorResponse(error, statusCode: 400);
                 }
-                #endregion
 
-                #endregion
+                #endregion Product
+
+                #endregion Validation
 
                 Guid processId = new Guid(request.ProcessId);
                 var cart = await _shoppingCartService.GetCartByProcessId(processId);
@@ -81,7 +85,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
 
                 var result = new SelectQuantityResultDto
                 {
-                    ProductId =cart.ProductId,
+                    ProductId = cart.ProductId,
                     ProductName = product.Name,
                     ProcessId = cart.ProcessId,
                     Quantity = cart.Quantity,
@@ -89,7 +93,6 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuanti
                 };
 
                 return GenericResponse<SelectQuantityResultDto>.SuccessResponse(result, 200);
-
             }
             catch (Exception ex)
             {

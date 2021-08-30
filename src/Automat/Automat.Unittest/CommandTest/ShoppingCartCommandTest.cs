@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
+﻿using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
 using Automat.Domain.Entities;
 using Automat.Persistence.Services.Abstract;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
 using Moq;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Automat.Unittest.CommandTest
@@ -23,6 +19,7 @@ namespace Automat.Unittest.CommandTest
         private Mock<IPaymentTypeOptionService> _paymentTypeOptionServiceMock;
         private Mock<IProcessService> _processServiceMock;
         private SelectPaymentMethodCommandHandler _selectPaymentMethodCommandHandler;
+
         public ShoppingCartCommandTest()
         {
             _selectPaymentMethodValidatorMock = new Mock<IValidator<SelectPaymentMethodCommand>>(MockBehavior.Strict);
@@ -49,15 +46,14 @@ namespace Automat.Unittest.CommandTest
             //Act
             Action action = () =>
             {
-               var result=_selectPaymentMethodCommandHandler.Handle(command, new System.Threading.CancellationToken());
-               result.Result.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
+                var result = _selectPaymentMethodCommandHandler.Handle(command, new System.Threading.CancellationToken());
+                result.Result.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
             };
 
             //Assert
             action.Should().NotThrow<Exception>();
             _paymentTypeOptionServiceMock.Verify(x => x.GetById(It.IsAny<int>()), Times.Once);
             _selectPaymentMethodValidatorMock.Verify(x => x.Validate(command), Times.Once);
-
         }
     }
 }

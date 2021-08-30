@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Automat.Domain.Dtos;
-using Automat.Domain.Entities;
+﻿using Automat.Domain.Dtos;
 using Automat.IntegrationTest.Fixtures.ShoppingCartApi;
 using Automat.IntegrationTest.Model.ShoppingCart;
 using FluentAssertions;
 using Newtonsoft.Json;
 using SharedLibrary.Response;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using Xunit;
 
 namespace Automat.IntegrationTest.ApiIntegrationTests
@@ -21,7 +15,6 @@ namespace Automat.IntegrationTest.ApiIntegrationTests
     {
         public ShoppingCartApiTest(ShoppingCartFactory fixture) : base(fixture)
         {
-
         }
 
         [Fact]
@@ -99,7 +92,6 @@ namespace Automat.IntegrationTest.ApiIntegrationTests
             result.Result.PaymentTypeId.Should().Be(paymentTypeId);
             Assert.NotNull(result.Result.ProcessId);
         }
-
 
         [Fact]
         public async void GetLastProcess_Should_Be_Return_Process()

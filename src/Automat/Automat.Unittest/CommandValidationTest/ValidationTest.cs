@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Automat.Application.Handlers.Category.Commands.Insert;
+﻿using Automat.Application.Handlers.Category.Commands.Insert;
 using Automat.Application.Handlers.Category.Commands.Update;
 using Automat.Application.Handlers.Order.Commands;
 using Automat.Application.Handlers.Payment.PaymentType.Commands;
@@ -14,6 +9,7 @@ using Automat.Application.Handlers.ShoppingCart.Commands;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
 using Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCommand;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace Automat.Unittest.CommandValidationTest
@@ -30,6 +26,7 @@ namespace Automat.Unittest.CommandValidationTest
         private UpdateCategoryCommandValidator _updateCategoryCommandValidator;
         private AddPaymentTypeCommandValidator _addPaymentTypeCommandValidator;
         private AddPaymentTypeOptionCommandValidator _addPaymentTypeOptionCommandValidator;
+
         public ValidationTest()
         {
             _addToCartCommandValidator = new AddToCartCommandValidator();
@@ -138,7 +135,7 @@ namespace Automat.Unittest.CommandValidationTest
         public void InsertCategory_InvalidParameter_Should_Be_Return_IsValid_False()
         {
             //Arrange
-            var request = new AddCategoryCommand() { Name = String.Empty};
+            var request = new AddCategoryCommand() { Name = String.Empty };
             int expectedErrorCount = 1;
 
             //Act
@@ -153,7 +150,7 @@ namespace Automat.Unittest.CommandValidationTest
         public void UpdateCategory_InvalidParameter_Should_Be_Return_IsValid_False()
         {
             //Arrange
-            var request = new UpdateCategoryCommand() { Id = 0, Name = String.Empty};
+            var request = new UpdateCategoryCommand() { Id = 0, Name = String.Empty };
             int expectedErrorCount = 2;
 
             //Act
@@ -193,6 +190,5 @@ namespace Automat.Unittest.CommandValidationTest
             result.IsValid.Should().BeFalse();
             result.Errors.Count.Should().Be(expectedErrorCount);
         }
-
     }
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCommand;
-using Automat.Common.Helpers;
+﻿using Automat.Common.Helpers;
 using Automat.Domain.Dtos;
 using Automat.Domain.Entities;
 using Automat.Domain.Enums;
@@ -13,6 +6,10 @@ using Automat.Persistence.Services.Abstract;
 using FluentValidation;
 using MediatR;
 using SharedLibrary.Response;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Automat.Application.Handlers.Order.Commands
 {
@@ -33,6 +30,7 @@ namespace Automat.Application.Handlers.Order.Commands
         private readonly IOrderService _orderService;
         private readonly IOrderDetailService _orderDetailService;
         private readonly IOrderProductFeatureOptionService _orderProductFeatureOptionService;
+
         public OrderPayCommandHandler(IValidator<OrderPayCommand> payValidator,
             IShoppingCartService shoppingCartService,
             IProductService productService,
@@ -53,11 +51,13 @@ namespace Automat.Application.Handlers.Order.Commands
             _orderDetailService = orderDetailService;
             _orderProductFeatureOptionService = orderProductFeatureOptionService;
         }
+
         public async Task<GenericResponse<OrderDto>> Handle(OrderPayCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 #region GeneralValidation
+
                 var payvalidResult = _payValidator.Validate(request);
                 if (!payvalidResult.IsValid)
                 {
@@ -68,7 +68,8 @@ namespace Automat.Application.Handlers.Order.Commands
                     ErrorResult error = new(errors);
                     return GenericResponse<OrderDto>.ErrorResponse(error, statusCode: 400);
                 }
-                #endregion
+
+                #endregion GeneralValidation
 
                 Guid processId = new Guid(request.ProcessId);
                 var cart = await _shoppingCartService.GetCartByProcessId(processId);
@@ -85,6 +86,7 @@ namespace Automat.Application.Handlers.Order.Commands
                 CategoryFeatureOption categoryFeatureOption = new CategoryFeatureOption();
 
                 #region Order
+
                 var order = new Domain.Entities.Order
                 {
                     OrderCode = Guid.NewGuid(),
@@ -96,9 +98,11 @@ namespace Automat.Application.Handlers.Order.Commands
                     PaymentTypeOptionId = paymentTypeOption.Id,
                     CreatedDate = DateTime.Now
                 };
-                #endregion
+
+                #endregion Order
 
                 #region RefundAmountControl
+
                 if (paymentTypeOption.RefundPaymentStatus)
                 {
                     if (request.PaidMoney > paymentTotal)
@@ -111,11 +115,13 @@ namespace Automat.Application.Handlers.Order.Commands
                         throw new Exception("Yetersiz bakiye!");
                     }
                 }
-                #endregion
+
+                #endregion RefundAmountControl
 
                 await _orderService.InsertAsync(order);
 
                 #region OrderDetail
+
                 var orderDetail = new OrderDetail
                 {
                     OrderId = order.Id,
@@ -125,7 +131,8 @@ namespace Automat.Application.Handlers.Order.Commands
                     CreatedDate = DateTime.Now
                 };
                 await _orderDetailService.InsertAsync(orderDetail);
-                #endregion
+
+                #endregion OrderDetail
 
                 #region OrderProductFeatureOption
 
@@ -142,12 +149,14 @@ namespace Automat.Application.Handlers.Order.Commands
                     await _orderProductFeatureOptionService.InsertAsync(orderProductFeature);
                     categoryFeatureOption = featureOption;
                 }
-                #endregion
+
+                #endregion OrderProductFeatureOption
 
                 #region Result
+
                 var result = new OrderDto
                 {
-                    OrderId=order.Id,
+                    OrderId = order.Id,
                     OrderCode = order.OrderCode,
                     OrderDate = order.OrderDate,
                     Message = "Siparişiniz oluşturuldu!",
@@ -164,13 +173,13 @@ namespace Automat.Application.Handlers.Order.Commands
                         cart.FeatureOptionQuantity),
                     PaymentMethod = new OrderPaymentMethodDto(paymentTypeOption.PaymentTypeId, paymentTypeOption.PaymentType.Name, paymentTypeOption.Id, paymentTypeOption.Name)
                 };
-                #endregion
+
+                #endregion Result
 
                 //clean shopping cart
                 await _shoppingCartService.DeleteAsync(cart.Id);
 
                 return GenericResponse<OrderDto>.SuccessResponse(result, 200);
-
             }
             catch (Exception ex)
             {

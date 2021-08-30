@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Automat.Domain.Dtos;
-using Automat.Domain.Entities;
+﻿using Automat.Domain.Dtos;
 using Automat.IntegrationTest.Fixtures.ProductApi;
 using Automat.IntegrationTest.Model.Product;
 using FluentAssertions;
 using Newtonsoft.Json;
 using SharedLibrary.Response;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using Xunit;
 
 namespace Automat.IntegrationTest.ApiIntegrationTests
@@ -20,7 +16,6 @@ namespace Automat.IntegrationTest.ApiIntegrationTests
     {
         public ProductApiTest(ProductApiFactory fixture) : base(fixture)
         {
-
         }
 
         [Fact]

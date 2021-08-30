@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Automat.Domain.Dtos;
 using Automat.Persistence.Services.Abstract;
 using MediatR;
 using SharedLibrary.Response;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Automat.Application.Handlers.Process.Queries
 {
-    public class GetLastProcessQuery:IRequest<GenericResponse<ShoppingCartDto>>
+    public class GetLastProcessQuery : IRequest<GenericResponse<ShoppingCartDto>>
     {
-        public class GetLastProcessQueriesHandler:IRequestHandler<GetLastProcessQuery,GenericResponse<ShoppingCartDto>>
+        public class GetLastProcessQueriesHandler : IRequestHandler<GetLastProcessQuery, GenericResponse<ShoppingCartDto>>
         {
             private readonly IShoppingCartService _shoppingCartService;
             private readonly IMapper _mapper;
+
             public GetLastProcessQueriesHandler(IShoppingCartService shoppingCartService,
                 IMapper mapper)
             {
                 _shoppingCartService = shoppingCartService;
                 _mapper = mapper;
             }
+
             public async Task<GenericResponse<ShoppingCartDto>> Handle(GetLastProcessQuery request, CancellationToken cancellationToken)
             {
                 try

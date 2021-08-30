@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Automat.Domain.Dtos;
+﻿using Automat.Domain.Dtos;
 using Automat.Persistence.Services.Abstract;
 using FluentValidation;
 using MediatR;
 using SharedLibrary.Response;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand
 {
@@ -24,6 +22,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
         private readonly IShoppingCartService _shoppingCartService;
         private readonly IProcessService _processService;
         private readonly IPaymentTypeOptionService _paymentTypeOptionService;
+
         public SelectPaymentMethodCommandHandler(IValidator<SelectPaymentMethodCommand> selectPaymentMethodValidator,
             IShoppingCartService shoppingCartService,
             IProcessService processService,
@@ -44,6 +43,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
                 #region Validation
 
                 #region GeneralValidation
+
                 var selectPaymentMethodValidResult = _selectPaymentMethodValidator.Validate(request);
                 if (!selectPaymentMethodValidResult.IsValid)
                 {
@@ -54,17 +54,20 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
                     ErrorResult error = new(errors);
                     return GenericResponse<SelectPaymentMethodResultDto>.ErrorResponse(error, statusCode: 400);
                 }
-                #endregion
+
+                #endregion GeneralValidation
 
                 #region PaymentTypeOption
+
                 if (paymentTypeOption == null)
                 {
                     ErrorResult error = new("Hatalı bir ödeme tipi seçimi yaptınız. Lütfen doğru seçimi yapınız.");
                     return GenericResponse<SelectPaymentMethodResultDto>.ErrorResponse(error, statusCode: 400);
                 }
-                #endregion
 
-                #endregion
+                #endregion PaymentTypeOption
+
+                #endregion Validation
 
                 Guid processId = new Guid(request.ProcessId);
                 var cart = await _shoppingCartService.GetCartByProcessId(processId);
@@ -76,7 +79,7 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
                 }
 
                 cart.PaymentTypeOptionId = request.PaymentTypeOptionId;
-                cart.ModifiedDate=DateTime.Now;
+                cart.ModifiedDate = DateTime.Now;
                 await _shoppingCartService.UpdateAsync(cart);
 
                 var result = new SelectPaymentMethodResultDto
@@ -90,7 +93,6 @@ namespace Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethod
                 };
 
                 return GenericResponse<SelectPaymentMethodResultDto>.SuccessResponse(result, 200);
-
             }
             catch (Exception ex)
             {

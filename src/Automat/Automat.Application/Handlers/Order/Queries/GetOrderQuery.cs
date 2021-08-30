@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Automat.Application.Handlers.Order.Commands;
-using Automat.Domain.Dtos;
+﻿using Automat.Domain.Dtos;
 using Automat.Persistence.Services.Abstract;
-using FluentValidation;
 using MediatR;
 using SharedLibrary.Response;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Automat.Application.Handlers.Order.Queries
 {
@@ -21,6 +17,7 @@ namespace Automat.Application.Handlers.Order.Queries
     public class GetOrderQueryHandler : IRequestHandler<GetOrderQuery, GenericResponse<OrderDto>>
     {
         private readonly IOrderService _orderService;
+
         public GetOrderQueryHandler(IOrderService orderService)
         {
             _orderService = orderService;
@@ -35,7 +32,9 @@ namespace Automat.Application.Handlers.Order.Queries
                 {
                     var orderDetail = order.OrderDetails.FirstOrDefault();
                     var orderProductFeatureOption = orderDetail.OrderProductFeatureOptions.FirstOrDefault();
+
                     #region Result
+
                     var result = new OrderDto
                     {
                         OrderId = order.Id,
@@ -55,7 +54,8 @@ namespace Automat.Application.Handlers.Order.Queries
                             orderProductFeatureOption != null ? orderProductFeatureOption.Quantity : null),
                         PaymentMethod = new OrderPaymentMethodDto(order.PaymentTypeOption.PaymentTypeId, order.PaymentTypeOption.PaymentType.Name, order.PaymentTypeOptionId, order.PaymentTypeOption.Name)
                     };
-                    #endregion
+
+                    #endregion Result
 
                     return GenericResponse<OrderDto>.SuccessResponse(result, 200);
                 }

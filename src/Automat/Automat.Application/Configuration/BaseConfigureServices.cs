@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Automat.Application.Handlers.Category.Commands.Insert;
+﻿using Automat.Application.Handlers.Category.Commands.Insert;
 using Automat.Application.Handlers.Category.Commands.Update;
 using Automat.Application.Handlers.Category.Queries;
 using Automat.Application.Handlers.Order.Commands;
@@ -20,6 +15,7 @@ using Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCo
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Automat.Application.Configuration
 {
@@ -59,9 +55,11 @@ namespace Automat.Application.Configuration
             services.AddMediatR(typeof(GetCategoriesQuery));
             services.AddMediatR(typeof(AddCategoryCommand));
             services.AddMediatR(typeof(UpdateCategoryCommand));
-            #endregion
+
+            #endregion MediatR
 
             #region FluentValidation
+
             services.AddTransient<IValidator<AddToCartCommand>, AddToCartCommandValidator>();
             services.AddTransient<IValidator<SelectProductQuantityCommand>, SelectProductQuantityCommandValidator>();
             services.AddTransient<IValidator<SelectPaymentMethodCommand>, SelectPaymentMethodCommandValidator>();
@@ -72,7 +70,8 @@ namespace Automat.Application.Configuration
             services.AddTransient<IValidator<AddCategoryCommand>, AddCategoryCommandValidator>();
             services.AddTransient<IValidator<UpdateProductCommand>, UpdateProductCommandValidator>();
             services.AddTransient<IValidator<UpdateCategoryCommand>, UpdateCategoryCommandValidator>();
-            #endregion
+
+            #endregion FluentValidation
 
             return services;
         }

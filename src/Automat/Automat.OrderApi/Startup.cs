@@ -1,30 +1,17 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Automat.Application.Configuration;
-using Automat.Application.Handlers.Order.Commands;
-using Automat.Application.Handlers.Process.Queries;
-using Automat.Application.Handlers.ShoppingCart.Commands;
-using Automat.Application.Handlers.ShoppingCart.Commands.SelectPaymentMethodCommand;
-using Automat.Application.Handlers.ShoppingCart.Commands.SelectProductQuantityCommand;
 using Automat.Domain.Mapping;
 using Automat.Infrastructure.Context;
 using Automat.Infrastructure.Repository;
 using Automat.Persistence.Services.Abstract;
 using Automat.Persistence.Services.Concrete;
-using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Automat.OrderApi
 {
@@ -40,7 +27,6 @@ namespace Automat.OrderApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -53,6 +39,7 @@ namespace Automat.OrderApi
             services.AddAllConfigurationServices();
 
             #region ServiceInjection
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
             services.AddScoped<IProductService, ProductService>();
@@ -68,7 +55,8 @@ namespace Automat.OrderApi
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderDetailService, OrderDetailService>();
             services.AddScoped<IOrderProductFeatureOptionService, OrderProductFeatureOptionService>();
-            #endregion
+
+            #endregion ServiceInjection
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Automat.Application.Handlers.Payment.PaymentType.Commands;
-using Automat.Domain.Dtos;
+﻿using Automat.Domain.Dtos;
 using Automat.Persistence.Services.Abstract;
 using FluentValidation;
 using MediatR;
 using SharedLibrary.Response;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Automat.Application.Handlers.Payment.PaymentTypeOption.Commands
 {
@@ -33,7 +30,6 @@ namespace Automat.Application.Handlers.Payment.PaymentTypeOption.Commands
                 _paymentOptionValidator = paymentOptionValidator;
                 _paymentTypeService = paymentTypeService;
                 _paymentTypeOptionService = paymentTypeOptionService;
-
             }
 
             public async Task<GenericResponse<PaymentTypeOptionDto>> Handle(AddPaymentTypeOptionCommand request,
@@ -54,7 +50,7 @@ namespace Automat.Application.Handlers.Payment.PaymentTypeOption.Commands
                         return GenericResponse<PaymentTypeOptionDto>.ErrorResponse(error, statusCode: 400);
                     }
 
-                    #endregion
+                    #endregion Validation
 
                     var paymentTypeOption = new Domain.Entities.PaymentTypeOption
                     {
@@ -81,5 +77,4 @@ namespace Automat.Application.Handlers.Payment.PaymentTypeOption.Commands
             }
         }
     }
-
 }

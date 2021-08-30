@@ -1,16 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Automat.Application.Configuration;
 using Automat.Domain.Mapping;
 using Automat.Infrastructure.Context;
@@ -18,7 +5,13 @@ using Automat.Infrastructure.Repository;
 using Automat.Persistence.Services.Abstract;
 using Automat.Persistence.Services.Concrete;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Automat.ManagementApi
 {
@@ -34,7 +27,6 @@ namespace Automat.ManagementApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -48,6 +40,7 @@ namespace Automat.ManagementApi
             services.AddAllConfigurationServices();
 
             #region ServiceInjection
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
             services.AddScoped<IProductService, ProductService>();
@@ -63,7 +56,8 @@ namespace Automat.ManagementApi
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderDetailService, OrderDetailService>();
             services.AddScoped<IOrderProductFeatureOptionService, OrderProductFeatureOptionService>();
-            #endregion
+
+            #endregion ServiceInjection
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

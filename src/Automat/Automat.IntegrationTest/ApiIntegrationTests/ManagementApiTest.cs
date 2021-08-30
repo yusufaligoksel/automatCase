@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Automat.Domain.Dtos;
+﻿using Automat.Domain.Dtos;
 using Automat.IntegrationTest.Fixtures.ManagementApi;
 using Automat.IntegrationTest.Model.Management;
-using Automat.IntegrationTest.Model.Product;
 using FluentAssertions;
 using Newtonsoft.Json;
 using SharedLibrary.Response;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using Xunit;
 
 namespace Automat.IntegrationTest.ApiIntegrationTests
@@ -20,7 +15,6 @@ namespace Automat.IntegrationTest.ApiIntegrationTests
     {
         public ManagementApiTest(ManagementApiFactory fixture) : base(fixture)
         {
-
         }
 
         [Theory]
@@ -48,8 +42,8 @@ namespace Automat.IntegrationTest.ApiIntegrationTests
         }
 
         [Theory]
-        [InlineData(4,"Bilezik")]
-        public async void AddPaymentTypeOption_Should_Return_NewPaymentType(int paymentTypeId,string name)
+        [InlineData(4, "Bilezik")]
+        public async void AddPaymentTypeOption_Should_Return_NewPaymentType(int paymentTypeId, string name)
         {
             //Arrange
             var entity = new AddPaymentTypeOptionRequest
@@ -71,6 +65,5 @@ namespace Automat.IntegrationTest.ApiIntegrationTests
             product.Result.Name.Should().Be(entity.Name);
             product.Result.Id.Should().NotBe(0);
         }
-
     }
 }

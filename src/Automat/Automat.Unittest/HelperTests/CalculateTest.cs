@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Automat.Common.Helpers;
+﻿using Automat.Common.Helpers;
 using FluentAssertions;
-using Moq;
+using System;
 using Xunit;
 
 namespace Automat.Unittest.HelperTests
@@ -28,7 +23,6 @@ namespace Automat.Unittest.HelperTests
         [InlineData(14.45)]
         public void Calculate_PaymentTotal_InValiParameter_Should_Be_Return_Exception(decimal unitPrice)
         {
-
             //Assert
             int? quantity = null;
 
@@ -58,7 +52,6 @@ namespace Automat.Unittest.HelperTests
         [InlineData(50, 27.8)]
         public void Calculate_RefundAmount_InValiParameter_Should_Be_Return_Exception(decimal paymentTotal, decimal paidMoney)
         {
-
             //Act
             Action action = () =>
             {

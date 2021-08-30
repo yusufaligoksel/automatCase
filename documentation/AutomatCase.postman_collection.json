@@ -1,0 +1,463 @@
+{
+	"info": {
+		"_postman_id": "38f487ff-153e-42dd-bca9-eeed1b88fc4f",
+		"name": "AutomatCase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ShoppingCart",
+			"item": [
+				{
+					"name": "AddToCart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"slotId\": 11,\r\n  \"productId\": 52,\r\n  \"featureOptionId\": 3,\r\n  \"featureOptionQuantity\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44320/api/shopping/addtocart",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44320",
+							"path": [
+								"api",
+								"shopping",
+								"addtocart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SelectProductQuantity",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"processId\": \"3292e2db-d012-4207-9913-b02cbdde387f\",\r\n  \"productId\": 52,\r\n  \"quantity\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44320/api/shopping/selectquantity",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44320",
+							"path": [
+								"api",
+								"shopping",
+								"selectquantity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SelectPaymentMethod",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"processId\": \"3292e2db-d012-4207-9913-b02cbdde387f\",\r\n  \"paymentTypeOptionId\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44320/api/shopping/selectpaymentmethod",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44320",
+							"path": [
+								"api",
+								"shopping",
+								"selectpaymentmethod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetLastProcess",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44320/api/shopping/getlastprocess",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44320",
+							"path": [
+								"api",
+								"shopping",
+								"getlastprocess"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Pay",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"processId\": \"3292e2db-d012-4207-9913-b02cbdde387f\",\r\n  \"paidMoney\": 50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44378/api/order/pay",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44378",
+							"path": [
+								"api",
+								"order",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOrder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44378/api/orders/9",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44378",
+							"path": [
+								"api",
+								"orders",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "GetList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44351/api/Product",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44351",
+							"path": [
+								"api",
+								"Product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44351/api/Product/7",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44351",
+							"path": [
+								"api",
+								"Product",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Eti Crax Acı Baharatlı\",\r\n  \"categoryId\": 6,\r\n  \"price\": 2.50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44351/api/Product",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44351",
+							"path": [
+								"api",
+								"Product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\":14,\r\n  \"name\": \"Ülker Çikolatalı Gofret\",\r\n  \"categoryId\": 8,\r\n  \"price\": 2.75\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44351/api/Product",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44351",
+							"path": [
+								"api",
+								"Product"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "GetList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44351/api/Category",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44351",
+							"path": [
+								"api",
+								"Category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44351/api/Category/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44351",
+							"path": [
+								"api",
+								"Category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Gofret\",\r\n  \"parentId\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44351/api/Category",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44351",
+							"path": [
+								"api",
+								"Category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 7,\r\n  \"name\": \"Kek\",\r\n  \"parentId\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44351/api/Category",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44351",
+							"path": [
+								"api",
+								"Category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Kripto Para\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44386/api/PaymentType",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44386",
+							"path": [
+								"api",
+								"PaymentType"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PaymentTypeOption",
+			"item": [
+				{
+					"name": "Insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"paymentTypeId\": 3,\r\n  \"name\": \"Ethereum\",\r\n  \"refundPaymentStatus\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44386/api/PaymentTypeOption",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44386",
+							"path": [
+								"api",
+								"PaymentTypeOption"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
